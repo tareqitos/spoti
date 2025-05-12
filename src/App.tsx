@@ -5,17 +5,23 @@ import { useSelector } from "react-redux";
 
 import { authSelectors } from "./containers/auth/selectors";
 import logo from "./logo.svg";
-import { useGetUserQuery } from "./api/apiSlice";
+import { useGetPlaylistsQuery, useGetPlaylistTracksQuery, useGetSearchTrackResultQuery, useGetUserQuery } from "./api/apiSlice";
 
 const App: FC = (): ReactElement => {
   const accessToken = useSelector(authSelectors.selectAccessToken);
 
   // TODO: You can access user data and now fetch user's playlists
+  const { data: playlists } = useGetPlaylistsQuery()
+  const { data: playlist_tracks } = useGetPlaylistTracksQuery(playlists?.items[0].tracks.href || "")
+  const { data: track } = useGetSearchTrackResultQuery("aimyon")
   const { data: user } = useGetUserQuery(undefined, {
     skip: !accessToken
   });
 
   console.log(user);
+  console.log("PLAYLISTS: ", playlists)
+  // console.log("PLAYLIST TRACKS: ", playlist_tracks)
+  // console.log("TRACK: ", track)
 
   return (
     <div className="App">
