@@ -1,0 +1,72 @@
+html[data-theme="light"] {
+    --background-color: #ffffff;
+    --text-color: #2d2d2d;
+    --link-color: #ff6b81;
+    /* joyful coral */
+    --border-color: #e0e0e0;
+
+    --primary-color: #ff6b81;
+    /* coral (main accent) */
+    --secondary-color: #2acfcf;
+    /* aqua (vibrant, energetic) */
+    --accent-color: #ffe066;
+    /* sunflower yellow */
+    --hover-color: #f0f0f0;
+    --active-color: #dcdcdc;
+
+    --button-bg: #ff6b81;
+    --button-text: #ffffff;
+    --button-hover-bg: #ff8293;
+    --button-disabled-bg: #f5c6cb;
+    --button-disabled-text: #ffffff;
+
+    --input-bg: #ffffff;
+    --input-text: #2d2d2d;
+    --input-border: #ccc;
+    --input-focus-border: #2acfcf;
+
+    --success-bg: #e6fff2;
+    --success-text: #2e7d32;
+    --error-bg: #ffeaea;
+    --error-text: #d32f2f;
+    --warning-bg: #fff7e0;
+    --warning-text: #f57c00;
+
+    --card-bg: #ffffff;
+    --card-shadow: rgba(0, 0, 0, 0.05);
+}
+
+
+html[data-theme="dark"] {
+    --background-color: #121212;
+    --text-color: #ffffff;
+    --link-color: #ff6b81;
+    --border-color: #2a2a2a;
+
+    --primary-color: #ff6b81;
+    --secondary-color: #2acfcf;
+    --accent-color: #ffe066;
+    --hover-color: #1e1e1e;
+    --active-color: #2c2c2c;
+
+    --button-bg: #ff6b81;
+    --button-text: #ffffff;
+    --button-hover-bg: #ff8293;
+    --button-disabled-bg: #333333;
+    --button-disabled-text: #aaaaaa;
+
+    --input-bg: #1f1f1f;
+    --input-text: #ffffff;
+    --input-border: #424242;
+    --input-focus-border: #2acfcf;
+
+    --success-bg: #1b3d2f;
+    --success-text: #57e389;
+    --error-bg: #4a1f1f;
+    --error-text: #ff6b6b;
+    --warning-bg: #4a3a1f;
+    --warning-text: #ffd166;
+
+    --card-bg: #1e1e1e;
+    --card-shadow: rgba(0, 0, 0, 0.2);
+}

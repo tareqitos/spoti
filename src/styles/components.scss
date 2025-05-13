@@ -1,0 +1,6 @@
+@use 'mixins' as *;
+@use 'theme' as *;
+
+button {
+    @include Button(16px, 120px, 40px, 5px);
+}

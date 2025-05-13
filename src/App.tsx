@@ -5,7 +5,10 @@ import { useSelector } from "react-redux";
 
 import { authSelectors } from "./containers/auth/selectors";
 import logo from "./logo.svg";
+import './styles/main.scss'
+import './styles/components.scss'
 import { useGetPlaylistsQuery, useGetPlaylistTracksQuery, useGetSearchTrackResultQuery, useGetUserQuery } from "./api/apiSlice";
+import { Header } from "./components/header";
 
 const App: FC = (): ReactElement => {
   const accessToken = useSelector(authSelectors.selectAccessToken);
@@ -18,27 +21,21 @@ const App: FC = (): ReactElement => {
     skip: !accessToken
   });
 
-  console.log(user);
-  console.log("PLAYLISTS: ", playlists)
+  // console.log(user);
+  // console.log("PLAYLISTS: ", playlists)
   // console.log("PLAYLIST TRACKS: ", playlist_tracks)
   // console.log("TRACK: ", track)
 
+  const toggleTheme = () => {
+    const html = document.documentElement.dataset
+    html.theme = html.theme === "light" ? "dark" : "light";
+    console.log(html.theme)
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="App" >
+      <Header />
+      {/* <button className='' onClick={toggleTheme}>Theme</button> */}
     </div>
   );
 };
