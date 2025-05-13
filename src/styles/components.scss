@@ -2,6 +2,16 @@
 @use 'mixins' as *;
 @use 'theme' as *;
 
+a {
+    color: var(--link-color);
+    text-decoration: none;
+    transition: $transition;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
 button {
     background: none;
     border: none;
@@ -30,8 +40,22 @@ input {
         transition: $transition;
 
         &:hover {
-            width: 60px;
+            width: 55px;
             cursor: pointer;
+        }
+    }
+
+    &.large {
+        @include Avatar(300px, 50%);
+        background-color: var(--primary-color);
+        overflow: hidden;
+
+        .user-picture.large {
+            transition: $transition;
+
+            &:hover {
+                width: 400px;
+            }
         }
     }
 }

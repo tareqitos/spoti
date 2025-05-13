@@ -4,11 +4,13 @@ import { FC, ReactElement, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 import { authSelectors } from "./containers/auth/selectors";
-import logo from "./logo.svg";
 import './styles/main.scss'
 import './styles/components.scss'
 import { useGetPlaylistsQuery, useGetPlaylistTracksQuery, useGetSearchTrackResultQuery, useGetUserQuery } from "./api/apiSlice";
 import { Header } from "./components/header";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Home } from "./page/home";
+import { UserProfile } from "./page/user";
 
 const App: FC = (): ReactElement => {
   const accessToken = useSelector(authSelectors.selectAccessToken);
@@ -21,6 +23,10 @@ const App: FC = (): ReactElement => {
     skip: !accessToken
   });
 
+  useEffect(() => {
+    console.log(user)
+  }, [])
+
   const [theme, setTheme] = useState("dark")
 
   const toggleTheme = () => {
@@ -30,9 +36,17 @@ const App: FC = (): ReactElement => {
     console.log(html.theme)
   }
 
+  if (!user) return <p>Error fetching data. Please reload the page.</p>
+
   return (
     <div className="App" >
-      {user && <Header user={user} theme={theme} toggle={toggleTheme} />}
+      <BrowserRouter>
+        <Header user={user} theme={theme} toggle={toggleTheme} />
+        <Routes>
+          <Route index element={<Home />} />
+          <Route path="user" element={<UserProfile user={user} />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 };

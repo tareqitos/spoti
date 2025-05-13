@@ -1,6 +1,7 @@
 import { Moon, Search, Sun } from 'lucide-react';
 import '../styles/components.scss'
 import { User } from '../types'
+import { Link } from 'react-router-dom';
 
 interface HeaderProps {
     user: User;
@@ -12,9 +13,13 @@ export const Header = ({ user, theme, toggle }: HeaderProps) => {
 
     return (
         <header>
-            <a className='avatar'>
-                <img src={user.images[1].url} alt='user-picture' width={50} className='user-picture small' />
-            </a>
+            <Link to="/user" className='avatar'>
+                <img
+                    src={user.images[1].url}
+                    alt='user-picture'
+                    width={50}
+                    className='user-picture small' />
+            </Link>
             <div className='input-wrapper'>
                 <Search className="search-icon" color="grey" size={24} />
                 <input className="search" placeholder='What do you want to listen to today?' />
