@@ -1,6 +1,37 @@
+@use 'variables' as *;
 @use 'mixins' as *;
 @use 'theme' as *;
 
 button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.button {
     @include Button(16px, 120px, 40px, 5px);
+}
+
+input {
+    @include Input(16px, 400px, 20px, 5px);
+
+    &.search {
+        padding-left: 40px;
+    }
+}
+
+.avatar {
+    @include Avatar(50px, 50%);
+    background-color: var(--primary-color);
+    overflow: hidden;
+
+    .user-picture.small {
+        transition: $transition;
+
+        &:hover {
+            width: 60px;
+            cursor: pointer;
+        }
+    }
 }

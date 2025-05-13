@@ -1,6 +1,6 @@
 import "./App.css";
 
-import { FC, ReactElement } from "react";
+import { FC, ReactElement, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 import { authSelectors } from "./containers/auth/selectors";
@@ -21,21 +21,18 @@ const App: FC = (): ReactElement => {
     skip: !accessToken
   });
 
-  // console.log(user);
-  // console.log("PLAYLISTS: ", playlists)
-  // console.log("PLAYLIST TRACKS: ", playlist_tracks)
-  // console.log("TRACK: ", track)
+  const [theme, setTheme] = useState("dark")
 
   const toggleTheme = () => {
     const html = document.documentElement.dataset
     html.theme = html.theme === "light" ? "dark" : "light";
+    setTheme(html.theme)
     console.log(html.theme)
   }
 
   return (
     <div className="App" >
-      <Header />
-      {/* <button className='' onClick={toggleTheme}>Theme</button> */}
+      {user && <Header user={user} theme={theme} toggle={toggleTheme} />}
     </div>
   );
 };

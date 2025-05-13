@@ -1,5 +1,25 @@
 @use "theme" as *;
+@use "variables" as *;
+@use "mixins" as *;
 
 html {
     background: var(--background-color);
+}
+
+// HEADER
+header {
+    @include Flex(row, center, center, 10px);
+    padding: $auto-padding;
+    text-align: center;
+}
+
+.input-wrapper {
+    @include Flex(row, flex-start, center);
+    position: relative;
+
+    .search-icon {
+        position: absolute;
+        left: 10px;
+        color: var(--text-color);
+    }
 }

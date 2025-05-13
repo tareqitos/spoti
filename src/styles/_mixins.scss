@@ -1,3 +1,16 @@
+@use 'variables' as *;
+// FLEX
+
+@mixin Flex($direction: row, $justify: center, $align: center, $gap: 0) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $justify;
+    align-items: $align;
+    gap: $gap;
+}
+
+// COMPONENTS
+
 @mixin Button($font-size: 16px, $width: 120px, $height: 40px, $border-radius: 5px) {
     font-size: $font-size;
     width: $width;
@@ -11,4 +24,33 @@
     &:hover {
         background-color: var(--button-hover-bg);
     }
+}
+
+@mixin Input($font-size: 16px, $width: 200px, $height: 40px, $border-radius: 5px) {
+    font-size: $font-size;
+    width: $width;
+    height: $height;
+    color: var(--input-text);
+    background-color: var(--input-bg);
+    border-radius: $border-radius;
+    border: 1px solid var(--input-border);
+    padding: 10px;
+    transition: $transition;
+
+    &:focus {
+        border-color: var(--input-focus-border);
+        width: calc($width + 40px);
+        outline: none;
+    }
+}
+
+@mixin Avatar($size: 50px, $border-radius: 50%) {
+    width: $size;
+    height: $size;
+    border-radius: $border-radius;
+    background-color: var(--primary-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--text-color);
 }
