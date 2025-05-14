@@ -1,5 +1,11 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 html[data-theme=light] {
-  --background-color: #ffffff;
+  --background-color: hsl(0, 0%, 100%);
   --text-color: #2d2d2d;
   --link-color: #ff6b81;
   /* joyful coral */
@@ -12,14 +18,15 @@ html[data-theme=light] {
   /* sunflower yellow */
   --hover-color: #f0f0f0;
   --active-color: #dcdcdc;
-  --button-bg: #ff6b81;
+  --item-bg: #ffffff;
+  --button-bg: #ffffff;
   --button-text: #ffffff;
   --button-hover-bg: #ff8293;
   --button-disabled-bg: #f5c6cb;
   --button-disabled-text: #ffffff;
   --input-bg: #ffffff;
   --input-text: #2d2d2d;
-  --input-border: #ccc;
+  --input-border: #e0e0e0;
   --input-focus-border: #2acfcf;
   --success-bg: #e6fff2;
   --success-text: #2e7d32;
@@ -32,23 +39,24 @@ html[data-theme=light] {
 }
 
 html[data-theme=dark] {
-  --background-color: #121212;
+  --background-color: #1E2233;
   --text-color: #ffffff;
   --link-color: #ff6b81;
-  --border-color: #2a2a2a;
+  --border-color: #464646;
   --primary-color: #ff6b81;
   --secondary-color: #2acfcf;
   --accent-color: #ffe066;
   --hover-color: #1e1e1e;
   --active-color: #2c2c2c;
-  --button-bg: #ff6b81;
+  --item-bg: #32364A;
+  --button-bg: #32364A;
   --button-text: #ffffff;
   --button-hover-bg: #ff8293;
   --button-disabled-bg: #333333;
   --button-disabled-text: #aaaaaa;
-  --input-bg: #1f1f1f;
+  --input-bg: #32364A;
   --input-text: #ffffff;
-  --input-border: #424242;
+  --input-border: #464646;
   --input-focus-border: #2acfcf;
   --success-bg: #1b3d2f;
   --success-text: #57e389;
@@ -63,6 +71,8 @@ html[data-theme=dark] {
 html {
   background: var(--background-color);
   color: var(--text-color);
+  overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
 header {
@@ -72,6 +82,7 @@ header {
   align-items: center;
   gap: 10px;
   padding: 20px max(2rem, 50vw - 600px);
+  padding-bottom: 0;
   text-align: center;
 }
 
@@ -87,4 +98,121 @@ header {
   position: absolute;
   left: 10px;
   color: var(--text-color);
+}
+
+#content {
+  display: flex;
+  flex-direction: column;
+  padding: 0px max(2rem, 50vw - 600px);
+}
+
+.bg {
+  position: absolute;
+  top: 100px;
+  left: 0;
+  width: 100%;
+  height: 30vh;
+  z-index: -1;
+  opacity: 0.7;
+  overflow-y: hidden;
+  background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+  filter: blur(120px);
+}
+
+.profile-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 100px auto;
+}
+
+.name-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+}
+.name-container .name {
+  font-size: 62px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.link-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 5px;
+  margin-top: 10px;
+}
+
+.user-playlist-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 40px;
+  margin: 0 auto;
+}
+.user-playlist-container .user-playlist-title {
+  font-size: 24px;
+  width: fit-content;
+  height: fit-content;
+  color: var(--button-text);
+  background-color: var(--button-bg);
+  border-radius: 5px;
+  border: 1px solid var(--border-color);
+  transition: all 0.2s cubic-bezier(0.19, 0.71, 0.45, 0.94);
+  cursor: pointer;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.2;
+  padding: 10px 20px;
+}
+.user-playlist-container .user-playlist-title:hover {
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.playlists-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-rows: repeat(auto-fill, minmax(200px, 1fr));
+  position: relative;
+  gap: 30px;
+  margin: 25px auto;
+}
+.playlists-wrapper .playlist-container .playlist-title {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.2;
+  margin-top: 10px;
+}
+.playlists-wrapper .playlist-container .playlist-image-container {
+  position: relative;
+  overflow: hidden;
+  width: 200px;
+  height: 200px;
+  background-color: var(--item-bg);
+  border-radius: 5px;
+  margin-top: 20px;
+}
+.playlists-wrapper .playlist-container .playlist-image-container .playlist-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 5px;
+  transition: all 0.2s cubic-bezier(0.19, 0.71, 0.45, 0.94);
+}
+.playlists-wrapper .playlist-container .playlist-image-container .playlist-image:hover {
+  transform: scale(1.1);
 }/*# sourceMappingURL=main.css.map */
