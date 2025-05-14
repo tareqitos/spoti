@@ -1,4 +1,4 @@
-import { Moon, Search, Sun } from 'lucide-react';
+import { Home, Moon, Search, Sun } from 'lucide-react';
 import '../styles/components.scss'
 import { User } from '../types'
 import { Link } from 'react-router-dom';
@@ -24,10 +24,15 @@ export const Header = ({ user, theme, toggle }: HeaderProps) => {
                 <Search className="search-icon" color="grey" size={24} />
                 <input className="search" placeholder='What do you want to listen to today?' />
             </div>
+            <button>
+                <Link to="/">
+                    <Home size={24} />
+                </Link>
+            </button>
             <button onClick={toggle}>
                 {theme === "dark" ?
-                    <Sun color="#2acfcf" size={28} /> :
-                    <Moon color="#2acfcf" size={28} />
+                    <Sun size={24} /> :
+                    <Moon size={24} />
                 }
             </button>
         </header>
