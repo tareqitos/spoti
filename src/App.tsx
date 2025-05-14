@@ -24,7 +24,7 @@ const App: FC = (): ReactElement => {
   });
 
   useEffect(() => {
-    console.log(user)
+    console.log(playlists)
   }, [])
 
   const [theme, setTheme] = useState("dark")
@@ -36,7 +36,7 @@ const App: FC = (): ReactElement => {
     console.log(html.theme)
   }
 
-  if (!user) return <p>Error fetching data. Please reload the page.</p>
+  if (!user || !playlists) return <p>Error fetching data. Please reload the page.</p>
 
   return (
     <div className="App" >
@@ -44,7 +44,7 @@ const App: FC = (): ReactElement => {
         <Header user={user} theme={theme} toggle={toggleTheme} />
         <Routes>
           <Route index element={<Home />} />
-          <Route path="user" element={<UserProfile user={user} />} />
+          <Route path="user" element={<UserProfile user={user} playlists={playlists} theme={theme} />} />
         </Routes>
       </BrowserRouter>
     </div>
