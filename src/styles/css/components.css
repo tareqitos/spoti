@@ -74,8 +74,8 @@ a:hover {
 
 button {
   font-size: none;
-  width: 50px;
-  height: 40px;
+  width: fit-content;
+  height: fit-content;
   color: var(--button-text);
   background-color: var(--button-bg);
   border-radius: 5px;
@@ -104,7 +104,12 @@ button:hover {
   border-color: var(--primary-color);
 }
 
-input {
+header button {
+  width: 50px;
+  height: 40px;
+}
+
+input.search {
   font-size: 16px;
   width: 400px;
   height: 40px;
@@ -114,14 +119,12 @@ input {
   border: 1px solid var(--input-border);
   padding: 10px;
   transition: all 0.2s cubic-bezier(0.19, 0.71, 0.45, 0.94);
+  padding-left: 40px;
 }
-input:focus {
-  border-color: var(--input-focus-border);
+input.search:focus {
+  border-color: var(--primary-color);
   width: 440px;
   outline: none;
-}
-input.search {
-  padding-left: 40px;
 }
 
 .avatar {
@@ -159,5 +162,26 @@ input.search {
   transition: all 0.2s cubic-bezier(0.19, 0.71, 0.45, 0.94);
 }
 .avatar.large .user-picture.large:hover {
-  width: 400px;
+  border-radius: 10%;
+  width: 500px;
+}
+
+@media screen and (max-width: 768px) {
+  input.search {
+    font-size: 16px;
+    width: 40vw;
+    height: 40px;
+    color: var(--input-text);
+    background-color: var(--input-bg);
+    border-radius: 5px;
+    border: 1px solid var(--input-border);
+    padding: 10px;
+    transition: all 0.2s cubic-bezier(0.19, 0.71, 0.45, 0.94);
+    padding-left: 40px;
+  }
+  input.search:focus {
+    border-color: var(--primary-color);
+    width: calc(40vw + 40px);
+    outline: none;
+  }
 }/*# sourceMappingURL=components.css.map */

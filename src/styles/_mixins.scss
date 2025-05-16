@@ -40,7 +40,7 @@
     transition: $transition;
 
     &:focus {
-        border-color: var(--input-focus-border);
+        border-color: var(--primary-color);
         width: calc($width + 40px);
         outline: none;
     }

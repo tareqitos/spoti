@@ -13,6 +13,8 @@ import { Home } from "./page/home";
 import { UserProfile } from "./page/user";
 
 const App: FC = (): ReactElement => {
+  const [theme, setTheme] = useState("dark")
+  const [loading, setLoading] = useState(true);
   const accessToken = useSelector(authSelectors.selectAccessToken);
 
   // TODO: You can access user data and now fetch user's playlists
@@ -24,10 +26,12 @@ const App: FC = (): ReactElement => {
   });
 
   useEffect(() => {
+    if (user || playlists) {
+      setLoading(false)
+    }
     console.log(playlists)
   }, [])
 
-  const [theme, setTheme] = useState("dark")
 
   const toggleTheme = () => {
     const html = document.documentElement.dataset

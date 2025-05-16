@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { SpotifyPlaylist } from "../../types"
+import { ListMusic, SquareLibrary } from "lucide-react";
 
 interface PlaylistsProps {
     playlists: SpotifyPlaylist;
@@ -12,21 +13,37 @@ export const UserPlaylists = ({ playlists }: PlaylistsProps) => {
     const publicPlaylist = playlists.items.filter(item => item.owner.display_name === "tareqitos")
 
     const [playlistToShow, setPlaylistToShow] = useState(publicPlaylist);
+    const [isTotalPlaylist, setIsTotalPlaylist] = useState(true)
     console.log(playlistsItem)
+
+    const handlePlaylistsToShow = () => {
+        if (isTotalPlaylist) {
+            setPlaylistToShow(publicPlaylist)
+            setIsTotalPlaylist(false);
+        } else {
+            setPlaylistToShow(totalPlaylists)
+            setIsTotalPlaylist(true)
+        }
+    }
 
     return (
         <div>
-
-            <div className="user-playlist-container">
-                <button className="user-playlist-title" onClick={() => setPlaylistToShow(totalPlaylists)}>{totalPlaylists.length + " total playlists"}</button>
-                <button className="user-playlist-title" onClick={() => setPlaylistToShow(publicPlaylist)}>{publicPlaylist.length + " public playlists"}</button>
+            <div className="playlist-toggle-container">
+                <button className={`playlist-toggle-button ${isTotalPlaylist && "active-toggle"}`} onClick={handlePlaylistsToShow}>
+                    <SquareLibrary size={24} />
+                    {totalPlaylists.length + " total playlists"}
+                </button>
+                <button className={`playlist-toggle-button ${!isTotalPlaylist && "active-toggle"}`} onClick={handlePlaylistsToShow}>
+                    <ListMusic size={24} />
+                    {publicPlaylist.length + " public playlists"}
+                </button>
             </div>
 
-            <div className="playlists-wrapper">
+            <div className="playlist-list-container">
                 {
                     playlistToShow.map((playlist) => (
-                        <div key={playlist.id} className="playlist-container" >
-                            <div className="playlist-image-container">
+                        <div key={playlist.id} className="playlist-item" >
+                            <div className="playlist-image-wrapper">
                                 <a href={playlist.external_urls.spotify} target="_blank">
                                     <img
                                         src={playlist.images && playlist.images[0].url}
@@ -37,7 +54,7 @@ export const UserPlaylists = ({ playlists }: PlaylistsProps) => {
                                     />
                                 </a>
                             </div>
-                            <p className="playlist-title">{playlist.name}</p>
+                            <p className="playlist-name">{playlist.name}</p>
                         </div>
                     ))
                 }

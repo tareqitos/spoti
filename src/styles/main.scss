@@ -45,7 +45,7 @@ header {
     left: 0;
     width: 100%;
     height: 30vh;
-    z-index: -1;
+    z-index: -2;
     opacity: .7;
     overflow-y: hidden;
     background: linear-gradient(to right,
@@ -74,38 +74,51 @@ header {
     margin-top: 10px;
 }
 
-.user-playlist-container {
+.playlist-toggle-container {
     @include Flex(row, flex-start, center, 40px);
     margin: 0 auto;
 
-    .user-playlist-title {
-        @include Button(24px, fit-content, fit-content, 5px);
+    .playlist-toggle-button {
+        @include Flex(row, flex-start, center, 10px);
         @include FontProperties(24px, 400, 1.2);
         padding: 10px 20px;
+        background: none;
+        border: none;
+        border-radius: 0;
+        border-bottom: 1px solid transparent;
+
+        &.active-toggle {
+            border-color: var(--text-color);
+        }
     }
 
 }
 
-.playlists-wrapper {
+
+
+.playlist-list-container {
+    --image-size: 150px;
+
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    grid-template-rows: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(var(--image-size), 1fr));
+    grid-template-rows: repeat(auto-fill, minmax(var(--image-size), 1fr));
+    justify-content: center;
     position: relative;
-    gap: 30px;
+    gap: 20px;
     margin: 25px auto;
 
-    .playlist-container {
+    .playlist-item {
 
-        .playlist-title {
-            @include FontProperties(20px, 600, 1.2);
+        .playlist-name {
+            @include FontProperties(18px, 600, 1.2);
             margin-top: 10px;
         }
 
-        .playlist-image-container {
+        .playlist-image-wrapper {
             position: relative;
             overflow: hidden;
-            width: 200px;
-            height: 200px;
+            width: var(--image-size);
+            height: var(--image-size);
             background-color: var(--item-bg);
             border-radius: 5px;
             margin-top: 20px;
@@ -128,4 +141,26 @@ header {
         }
     }
 
+}
+
+@media screen and (max-width: 768px) {
+
+
+    .profile-container {
+        flex-direction: column;
+        margin: 50px auto;
+    }
+
+    .playlist-list-container {
+        --image-size: 200px;
+    }
+
+    .playlist-toggle-container {
+        justify-content: center;
+        gap: 10px;
+
+        .playlist-toggle-button {
+            font-size: 16px;
+        }
+    }
 }

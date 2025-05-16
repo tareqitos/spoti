@@ -14,23 +14,21 @@ a {
 }
 
 button {
-    @include Button(none, 50px, 40px, 5px);
-    // background: var(--button-bg);
-    // width: 40px;
-    // height: 40px;
-    // border: 1px solid var(--border-color);
-    // border-radius: 5px;
-    // cursor: pointer;
+    @include Button(none, fit-content, fit-content, 5px);
 }
 
 .button {
     @include Button(16px, 120px, 40px, 5px);
 }
 
-input {
-    @include Input(16px, 400px, 40px, 5px);
+header button {
+    width: 50px;
+    height: 40px;
+}
 
+input {
     &.search {
+        @include Input(16px, 400px, 40px, 5px);
         padding-left: 40px;
     }
 }
@@ -58,8 +56,17 @@ input {
             transition: $transition;
 
             &:hover {
-                width: 400px;
+                border-radius: 10%;
+                width: 500px;
             }
         }
+    }
+}
+
+// media screen for small screen
+@media screen and (max-width: 768px) {
+    input.search {
+        @include Input(16px, 40vw, 40px, 5px);
+        padding-left: 40px;
     }
 }
