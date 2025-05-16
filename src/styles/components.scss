@@ -63,6 +63,74 @@ input {
     }
 }
 
+
+.tracks-container {
+    display: grid;
+    grid-template-columns: 4fr 2fr 2fr 1fr .5fr;
+    align-items: center;
+    position: relative;
+    padding: 10px 20px;
+    margin: 10px 0;
+    // border: 1px solid var(--border-color);
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: var(--track-bg);
+    --image-size: 60px;
+
+    .track-image-bg {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 60%;
+        height: 200%;
+        opacity: 0.8;
+        filter: blur(120px);
+        border-radius: 5px;
+    }
+
+    .track-image-container {
+        position: relative;
+        overflow: hidden;
+        width: var(--image-size);
+        height: var(--image-size);
+        border-radius: 5px;
+
+        .track-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 5px;
+            transition: $transition;
+
+
+            &:hover {
+                transform: scale(1.1);
+            }
+        }
+
+
+    }
+
+    .track-infos {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        p {
+            width: 300px;
+        }
+    }
+
+    .track-album {
+        display: flex;
+        align-items: center;
+    }
+}
+
+
 // media screen for small screen
 @media screen and (max-width: 768px) {
     input.search {
