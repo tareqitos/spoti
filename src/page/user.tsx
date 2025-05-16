@@ -30,7 +30,7 @@ export const UserProfile = ({ user, playlists, theme }: UserProps) => {
     return (
         <div id="content">
             <Background />
-            <div className="profile-container">
+            <section className="profile-container">
                 <div className="avatar large">
                     <img
                         src={image}
@@ -57,9 +57,11 @@ export const UserProfile = ({ user, playlists, theme }: UserProps) => {
                         </a>
                     </div>
                 </div>
-            </div>
+            </section>
 
-            <UserPlaylists playlists={playlists} />
+            <section>
+                <UserPlaylists playlists={playlists} />
+            </section>
         </div>
     )
 }
