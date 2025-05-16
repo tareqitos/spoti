@@ -19,8 +19,8 @@ const App: FC = (): ReactElement => {
 
   // TODO: You can access user data and now fetch user's playlists
   const { data: playlists } = useGetPlaylistsQuery()
-  const { data: playlist_tracks } = useGetPlaylistTracksQuery(playlists?.items[0].tracks.href || "")
-  const { data: track } = useGetSearchTrackResultQuery("aimyon")
+  // const { data: playlist_tracks } = useGetPlaylistTracksQuery(playlists?.items[0].tracks.href || "")
+  // const { data: track } = useGetSearchTrackResultQuery()
   const { data: user } = useGetUserQuery(undefined, {
     skip: !accessToken
   });
@@ -29,7 +29,7 @@ const App: FC = (): ReactElement => {
     if (user || playlists) {
       setLoading(false)
     }
-    console.log(playlists)
+    // console.log(playlists)
   }, [])
 
 
@@ -47,7 +47,7 @@ const App: FC = (): ReactElement => {
       <BrowserRouter>
         <Header user={user} theme={theme} toggle={toggleTheme} />
         <Routes>
-          <Route index element={<Home />} />
+          <Route index element={<Home playlists={playlists} />} />
           <Route path="user" element={<UserProfile user={user} playlists={playlists} theme={theme} />} />
         </Routes>
       </BrowserRouter>
