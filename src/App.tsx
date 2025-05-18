@@ -7,10 +7,10 @@ import { authSelectors } from "./containers/auth/selectors";
 import './styles/main.scss'
 import './styles/components.scss'
 import { useGetPlaylistsQuery, useGetPlaylistTracksQuery, useGetSearchTrackResultQuery, useGetUserQuery } from "./api/apiSlice";
-import { Header } from "./components/header";
+import { Header } from "./components/Header";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Home } from "./page/home";
-import { UserProfile } from "./page/user";
+import { Home } from "./page/Home";
+import { UserProfile } from "./page/User";
 
 const App: FC = (): ReactElement => {
   const [theme, setTheme] = useState("dark")
@@ -48,7 +48,7 @@ const App: FC = (): ReactElement => {
         <Header user={user} theme={theme} toggle={toggleTheme} />
         <Routes>
           <Route index element={<Home playlists={playlists} />} />
-          <Route path="user" element={<UserProfile user={user} playlists={playlists} theme={theme} />} />
+          <Route path="User" element={<UserProfile user={user} playlists={playlists} theme={theme} />} />
         </Routes>
       </BrowserRouter>
     </div>

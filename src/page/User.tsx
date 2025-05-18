@@ -1,6 +1,6 @@
 import { AtSign, CircleUserRound } from "lucide-react";
 import { SpotifyPlaylist, User } from "../types";
-import { UserPlaylists } from "../components/user/playlists";
+import { UserPlaylists } from "../components/profile/ProfilePlaylists";
 
 interface UserProps {
     user: User;

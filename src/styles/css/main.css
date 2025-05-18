@@ -127,6 +127,10 @@ section.sidebar {
   padding: 20px;
   overflow-y: auto;
 }
+section.sidebar .selected {
+  color: var(--primary-color);
+  font-weight: 600;
+}
 
 section.main {
   width: 100%;
