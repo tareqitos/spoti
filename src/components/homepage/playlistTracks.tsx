@@ -28,14 +28,22 @@ export const PlaylistTracks = ({ tracks }: TracksProps) => {
 
                             <div className="track-infos">
                                 <img
-                                    src={item.track.album.images[2].url || item.track.album.images[1].url || item.track.album.images[0].url}
+                                    src={
+                                        item.track.album?.images[2]?.url ||
+                                        item.track.album?.images[1]?.url ||
+                                        item.track.album?.images[0]?.url ||
+                                        ""}
                                     alt={item.track.name}
                                     className="track-image-bg"
                                 />
 
                                 <div className="track-image-container">
                                     <img
-                                        src={item.track.album.images[2].url || item.track.album.images[1].url || item.track.album.images[0].url}
+                                        src={
+                                            item.track.album?.images[2]?.url ||
+                                            item.track.album?.images[1]?.url ||
+                                            item.track.album?.images[0]?.url ||
+                                            "./vinyl.png"}
                                         alt={item.track.name}
                                         className="track-image"
                                     />
@@ -43,7 +51,7 @@ export const PlaylistTracks = ({ tracks }: TracksProps) => {
 
                                 </div>
                                 <div className="track-details">
-                                    <p>{item.track.name}</p>
+                                    <a>{item.track.name}</a>
                                     {item.track.album.artists.map(artist => (
                                         <p key={uuidv4()}>{artist.name}</p>
                                     ))}
