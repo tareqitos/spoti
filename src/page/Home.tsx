@@ -7,6 +7,7 @@ import { ListSkeleton, PlaylistSkeleton } from "../components/ui/Skeleton";
 
 import Skeleton from "react-loading-skeleton"
 import 'react-loading-skeleton/dist/skeleton.css'
+import { TrackBar } from "../components/homepage/TrackBar";
 
 
 
@@ -19,6 +20,8 @@ interface Props {
 export const Home = ({ playlists }: Props) => {
     const [selectedPlaylistTracksLink, setSelectedPlaylistTracksLink] = useState<string>("")
     const [selectedPlaylistName, setSelectedPlaylistName] = useState<string>("");
+    const [trackbarVisible, setTrackbarVisible] = useState(false);
+
     const [isLoading, setIsLoading] = useState(true)
 
     let { data: playlist_tracks } = useGetPlaylistTracksQuery(selectedPlaylistTracksLink)
@@ -32,6 +35,14 @@ export const Home = ({ playlists }: Props) => {
             setSelectedPlaylistTracksLink(href)
             setSelectedPlaylistName(name)
             loadTimeout()
+        }
+    }
+
+    const toggleTrackbar = () => {
+        if (trackbarVisible) {
+            setTrackbarVisible(false)
+        } else {
+            setTrackbarVisible(true)
         }
     }
 
@@ -49,20 +60,24 @@ export const Home = ({ playlists }: Props) => {
 
     return (
         <div className="homepage">
-            <section className="sidebar">
+            <section className={`sidebar ${trackbarVisible ? "hidden" : ""}`}>
                 <Sidebar
                     playlistItems={playlists}
                     selectedPlaylistName={selectedPlaylistName}
                     queryPlaylistTracks={queryPlaylistTracks}
                 />
-
             </section>
+
             <section className="main">
                 {
                     isLoading ?
                         <PlaylistSkeleton /> :
-                        playlist_tracks && <PlaylistTracks tracks={playlist_tracks} />
+                        playlist_tracks && <PlaylistTracks tracks={playlist_tracks} toggleTrackbar={toggleTrackbar} />
                 }
+            </section>
+
+            <section className={`trackbar ${trackbarVisible ? "hidden" : ""}`}>
+                <TrackBar />
             </section>
         </div>
     )

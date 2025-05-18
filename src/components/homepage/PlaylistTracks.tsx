@@ -3,10 +3,11 @@ import { v4 as uuidv4 } from 'uuid';
 
 
 interface TracksProps {
-    tracks: SpotifyTrack;
+    tracks: SpotifyTrack,
+    toggleTrackbar: () => void,
 }
 
-export const PlaylistTracks = ({ tracks }: TracksProps) => {
+export const PlaylistTracks = ({ tracks, toggleTrackbar }: TracksProps) => {
     const items = tracks.items
 
     const convertDuration = (durationMs: number) => {
@@ -51,7 +52,7 @@ export const PlaylistTracks = ({ tracks }: TracksProps) => {
 
                                 </div>
                                 <div className="track-details">
-                                    <a>{item.track.name}</a>
+                                    <a onClick={toggleTrackbar}>{item.track.name}</a>
                                     {item.track.album.artists.map(artist => (
                                         <p key={uuidv4()}>{artist.name}</p>
                                     ))}

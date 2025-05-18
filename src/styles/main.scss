@@ -42,17 +42,39 @@ header {
     height: calc(100vh - 100px);
 }
 
-section.sidebar {
+section.sidebar,
+section.trackbar {
     @include Flex(column, flex-start, flex-start, 15px);
-    width: 500px;
+    width: 0;
     height: 100%;
     padding: 20px;
     overflow-x: hidden;
     overflow-y: auto;
+    transition: $transition-fast;
+
+}
+
+section.trackbar {
+    visibility: hidden;
+
+    &.hidden {
+        visibility: visible;
+        width: 50vw;
+    }
+}
+
+section.sidebar {
+    width: 500px;
 
     .selected {
         color: var(--primary-color);
         font-weight: 600;
+    }
+
+    &.hidden {
+        width: 0;
+        opacity: 0;
+        visibility: hidden;
     }
 }
 
