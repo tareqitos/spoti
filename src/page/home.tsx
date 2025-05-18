@@ -41,7 +41,8 @@ export const Home = ({ playlists }: Props) => {
                 }
             </section>
             <section className="main">
-                {playlist_tracks && <PlaylistTracks tracks={playlist_tracks} />}            </section>
+                {playlist_tracks && <PlaylistTracks tracks={playlist_tracks} />}            
+                </section>
         </div>
     )
 }
