@@ -70,7 +70,8 @@ a {
 }
 a:hover {
   color: var(--primary-color);
-  text-decoration: underline;
+  cursor: pointer;
+  text-decoration: none;
 }
 
 button {
@@ -169,7 +170,8 @@ input.search:focus {
 
 .tracks-container {
   display: grid;
-  grid-template-columns: 4fr 2fr 2fr 1fr 0.5fr;
+  grid-template-columns: 4fr 3fr 2fr 1fr 0.2fr;
+  gap: 20px;
   align-items: center;
   position: relative;
   padding: 10px 20px;
@@ -178,6 +180,9 @@ input.search:focus {
   overflow: hidden;
   background-color: var(--track-bg);
   --image-size: 60px;
+}
+.tracks-container:first-child {
+  margin-top: 0;
 }
 .tracks-container .track-image-bg {
   position: absolute;
@@ -213,6 +218,7 @@ input.search:focus {
   display: flex;
   align-items: center;
   gap: 10px;
+  z-index: 1;
 }
 .tracks-container .track-infos p {
   width: 300px;
@@ -220,6 +226,32 @@ input.search:focus {
 .tracks-container .track-album {
   display: flex;
   align-items: center;
+  z-index: 1;
+}
+.tracks-container .track-album p {
+  width: 20vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-wrap: nowrap;
+}
+.tracks-container .track-album,
+.tracks-container .track-details,
+.tracks-container .track-release-date,
+.tracks-container .track-duration {
+  z-index: 1;
+}
+
+::-webkit-scrollbar {
+  width: 2px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--primary-color);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--bg-color);
 }
 
 @media screen and (max-width: 768px) {

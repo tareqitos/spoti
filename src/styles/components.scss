@@ -9,7 +9,8 @@ a {
 
     &:hover {
         color: var(--primary-color);
-        text-decoration: underline;
+        cursor: pointer;
+        text-decoration: none;
     }
 }
 
@@ -66,16 +67,20 @@ input {
 
 .tracks-container {
     display: grid;
-    grid-template-columns: 4fr 2fr 2fr 1fr .5fr;
+    grid-template-columns: 4fr 3fr 2fr 1fr .2fr;
+    gap: 20px;
     align-items: center;
     position: relative;
     padding: 10px 20px;
     margin: 10px 0;
-    // border: 1px solid var(--border-color);
     border-radius: 5px;
     overflow: hidden;
     background-color: var(--track-bg);
     --image-size: 60px;
+
+    &:first-child {
+        margin-top: 0;
+    }
 
     .track-image-bg {
         position: absolute;
@@ -105,19 +110,17 @@ input {
             border-radius: 5px;
             transition: $transition;
 
-
             &:hover {
                 transform: scale(1.1);
             }
         }
-
-
     }
 
     .track-infos {
         display: flex;
         align-items: center;
         gap: 10px;
+        z-index: 1;
 
         p {
             width: 300px;
@@ -127,7 +130,36 @@ input {
     .track-album {
         display: flex;
         align-items: center;
+        z-index: 1;
+
+        p {
+            width: 20vw;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            text-wrap: nowrap;
+        }
     }
+
+    .track-album,
+    .track-details,
+    .track-release-date,
+    .track-duration {
+        z-index: 1;
+    }
+}
+
+// custom scrollbar
+::-webkit-scrollbar {
+    width: 2px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--primary-color);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: var(--bg-color);
 }
 
 

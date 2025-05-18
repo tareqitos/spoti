@@ -121,7 +121,7 @@ section.sidebar {
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  gap: 10px;
+  gap: 15px;
   width: 500px;
   height: 100%;
   padding: 20px;

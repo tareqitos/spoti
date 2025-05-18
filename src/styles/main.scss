@@ -43,7 +43,7 @@ header {
 }
 
 section.sidebar {
-    @include Flex(column, flex-start, flex-start, 10px);
+    @include Flex(column, flex-start, flex-start, 15px);
     width: 500px;
     height: 100%;
     padding: 20px;
@@ -176,8 +176,9 @@ section.main {
 
 }
 
-@media screen and (max-width: 768px) {
 
+
+@media screen and (max-width: 768px) {
 
     .profile-container {
         flex-direction: column;
