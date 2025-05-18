@@ -2,7 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { useGetPlaylistTracksQuery } from "../api/apiSlice";
 import { SpotifyPlaylist, SpotifyTrack, SpotifyTrackItem } from "../types";
 import { PlaylistTracks } from "../components/homepage/PlaylistTracks";
-import { v4 as uuidv4 } from 'uuid';
+import { Sidebar } from "../components/homepage/Sidebar";
+
 
 
 interface Props {
@@ -37,18 +38,11 @@ export const Home = ({ playlists }: Props) => {
     return (
         <div className="homepage">
             <section className="sidebar">
-                {
-                    playlistItems.map(playlist => (
-                        <div key={uuidv4()} >
-                            <a
-                                onClick={() => queryPlaylistTracks(playlist.tracks.href, playlist.name)}
-                                className={selectedPlaylistName === playlist.name ? "selected" : ""}
-                            >
-                                {playlist.name}
-                            </a>
-                        </div>
-                    ))
-                }
+                <Sidebar
+                    playlistItems={playlists}
+                    selectedPlaylistName={selectedPlaylistName}
+                    queryPlaylistTracks={queryPlaylistTracks}
+                />
             </section>
             <section className="main">
                 {playlist_tracks && <PlaylistTracks tracks={playlist_tracks} />}

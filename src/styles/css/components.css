@@ -220,7 +220,8 @@ input.search:focus {
   gap: 10px;
   z-index: 1;
 }
-.tracks-container .track-infos p {
+.tracks-container .track-infos a {
+  font-weight: 600;
   width: 300px;
 }
 .tracks-container .track-album {
