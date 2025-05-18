@@ -2,27 +2,40 @@
 @use 'mixins' as *;
 @use 'theme' as *;
 
+a {
+    color: var(--text-color);
+    text-decoration: none;
+    transition: $transition;
+
+    &:hover {
+        color: var(--primary-color);
+        cursor: pointer;
+        text-decoration: none;
+    }
+}
+
 button {
-    background: none;
-    border: none;
-    padding: 0;
-    cursor: pointer;
+    @include Button(none, fit-content, fit-content, 5px);
 }
 
 .button {
     @include Button(16px, 120px, 40px, 5px);
 }
 
-input {
-    @include Input(16px, 400px, 20px, 5px);
+header button {
+    width: 50px;
+    height: 40px;
+}
 
+input {
     &.search {
+        @include Input(16px, 400px, 40px, 5px);
         padding-left: 40px;
     }
 }
 
 .avatar {
-    @include Avatar(50px, 50%);
+    @include Avatar(50px, 50px, 50%);
     background-color: var(--primary-color);
     overflow: hidden;
 
@@ -30,8 +43,131 @@ input {
         transition: $transition;
 
         &:hover {
-            width: 60px;
+            width: 55px;
             cursor: pointer;
         }
+    }
+
+    &.large {
+        @include Avatar(300px, 300px, 20%);
+        background-color: var(--primary-color);
+        overflow: hidden;
+
+        .user-picture.large {
+            transition: $transition;
+
+            &:hover {
+                border-radius: 10%;
+                width: 500px;
+            }
+        }
+    }
+}
+
+
+.tracks-container {
+    display: grid;
+    grid-template-columns: 4fr 3fr 2fr 1fr .2fr;
+    gap: 20px;
+    align-items: center;
+    position: relative;
+    padding: 10px 20px;
+    margin: 10px 0;
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: var(--track-bg);
+    --image-size: 60px;
+
+    &:first-child {
+        margin-top: 0;
+    }
+
+    .track-image-bg {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 60%;
+        height: 200%;
+        opacity: 0.8;
+        filter: blur(120px);
+        border-radius: 5px;
+    }
+
+    .track-image-container {
+        position: relative;
+        overflow: hidden;
+        width: var(--image-size);
+        height: var(--image-size);
+        border-radius: 5px;
+
+        .track-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 5px;
+            transition: $transition;
+
+            &:hover {
+                transform: scale(1.1);
+            }
+        }
+    }
+
+    .track-infos {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        z-index: 1;
+
+        a {
+            font-weight: 600;
+            width: 300px;
+        }
+    }
+
+    .track-album {
+        display: flex;
+        align-items: center;
+        z-index: 1;
+
+        p {
+            width: 20vw;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            text-wrap: nowrap;
+        }
+    }
+
+    .track-album,
+    .track-details,
+    .track-release-date,
+    .track-duration {
+        z-index: 1;
+    }
+}
+
+// custom scrollbar
+::-webkit-scrollbar {
+    width: 2px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--primary-color);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: var(--bg-color);
+}
+
+
+// media screen for small screen
+@media screen and (max-width: 768px) {
+    input.search {
+        @include Input(16px, 40vw, 40px, 5px);
+        padding-left: 40px;
     }
 }

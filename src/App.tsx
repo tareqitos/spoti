@@ -4,24 +4,35 @@ import { FC, ReactElement, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 import { authSelectors } from "./containers/auth/selectors";
-import logo from "./logo.svg";
 import './styles/main.scss'
 import './styles/components.scss'
 import { useGetPlaylistsQuery, useGetPlaylistTracksQuery, useGetSearchTrackResultQuery, useGetUserQuery } from "./api/apiSlice";
-import { Header } from "./components/header";
+import { Header } from "./components/Header";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Home } from "./page/Home";
+import { UserProfile } from "./page/User";
+import { HomePageSkeleton } from "./components/ui/Skeleton";
 
 const App: FC = (): ReactElement => {
+  const [theme, setTheme] = useState("dark")
+  const [loading, setLoading] = useState(true);
   const accessToken = useSelector(authSelectors.selectAccessToken);
 
   // TODO: You can access user data and now fetch user's playlists
   const { data: playlists } = useGetPlaylistsQuery()
-  const { data: playlist_tracks } = useGetPlaylistTracksQuery(playlists?.items[0].tracks.href || "")
-  const { data: track } = useGetSearchTrackResultQuery("aimyon")
+  // const { data: playlist_tracks } = useGetPlaylistTracksQuery(playlists?.items[0].tracks.href || "")
+  // const { data: track } = useGetSearchTrackResultQuery()
   const { data: user } = useGetUserQuery(undefined, {
     skip: !accessToken
   });
 
-  const [theme, setTheme] = useState("dark")
+  useEffect(() => {
+    if (user || playlists) {
+      setLoading(false)
+    }
+    // console.log(playlists)
+  }, [])
+
 
   const toggleTheme = () => {
     const html = document.documentElement.dataset
@@ -32,7 +43,13 @@ const App: FC = (): ReactElement => {
 
   return (
     <div className="App" >
-      {user && <Header user={user} theme={theme} toggle={toggleTheme} />}
+      <BrowserRouter>
+        {user && <Header user={user} theme={theme} toggle={toggleTheme} />}
+        <Routes>
+          <Route index element={!playlists ? <HomePageSkeleton /> : <Home playlists={playlists} />} />
+          <Route path="User" element={user && playlists && <UserProfile user={user} playlists={playlists} theme={theme} />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 };

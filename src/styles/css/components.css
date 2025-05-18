@@ -1,5 +1,5 @@
 html[data-theme=light] {
-  --background-color: #ffffff;
+  --background-color: hsl(0, 0%, 100%);
   --text-color: #2d2d2d;
   --link-color: #ff6b81;
   /* joyful coral */
@@ -12,14 +12,15 @@ html[data-theme=light] {
   /* sunflower yellow */
   --hover-color: #f0f0f0;
   --active-color: #dcdcdc;
-  --button-bg: #ff6b81;
+  --item-bg: #ffffff;
+  --button-bg: #ffffff;
   --button-text: #ffffff;
   --button-hover-bg: #ff8293;
   --button-disabled-bg: #f5c6cb;
   --button-disabled-text: #ffffff;
   --input-bg: #ffffff;
   --input-text: #2d2d2d;
-  --input-border: #ccc;
+  --input-border: #e0e0e0;
   --input-focus-border: #2acfcf;
   --success-bg: #e6fff2;
   --success-text: #2e7d32;
@@ -32,23 +33,25 @@ html[data-theme=light] {
 }
 
 html[data-theme=dark] {
-  --background-color: #121212;
+  --background-color: #1E2233;
   --text-color: #ffffff;
   --link-color: #ff6b81;
-  --border-color: #2a2a2a;
+  --border-color: #464646;
   --primary-color: #ff6b81;
   --secondary-color: #2acfcf;
   --accent-color: #ffe066;
   --hover-color: #1e1e1e;
   --active-color: #2c2c2c;
-  --button-bg: #ff6b81;
+  --item-bg: #32364A;
+  --track-bg: #13151f;
+  --button-bg: #32364A;
   --button-text: #ffffff;
   --button-hover-bg: #ff8293;
   --button-disabled-bg: #333333;
   --button-disabled-text: #aaaaaa;
-  --input-bg: #1f1f1f;
+  --input-bg: #32364A;
   --input-text: #ffffff;
-  --input-border: #424242;
+  --input-border: #464646;
   --input-focus-border: #2acfcf;
   --success-bg: #1b3d2f;
   --success-text: #57e389;
@@ -60,11 +63,31 @@ html[data-theme=dark] {
   --card-shadow: rgba(0, 0, 0, 0.2);
 }
 
-button {
-  background: none;
-  border: none;
-  padding: 0;
+a {
+  color: var(--text-color);
+  text-decoration: none;
+  transition: all 0.2s cubic-bezier(0.19, 0.71, 0.45, 0.94);
+}
+a:hover {
+  color: var(--primary-color);
   cursor: pointer;
+  text-decoration: none;
+}
+
+button {
+  font-size: none;
+  width: fit-content;
+  height: fit-content;
+  color: var(--button-text);
+  background-color: var(--button-bg);
+  border-radius: 5px;
+  border: 1px solid var(--border-color);
+  transition: all 0.2s cubic-bezier(0.19, 0.71, 0.45, 0.94);
+  cursor: pointer;
+}
+button:hover {
+  color: var(--primary-color);
+  border-color: var(--primary-color);
 }
 
 .button {
@@ -74,31 +97,36 @@ button {
   color: var(--button-text);
   background-color: var(--button-bg);
   border-radius: 5px;
-  border: none;
+  border: 1px solid var(--border-color);
+  transition: all 0.2s cubic-bezier(0.19, 0.71, 0.45, 0.94);
   cursor: pointer;
 }
 .button:hover {
-  background-color: var(--button-hover-bg);
+  color: var(--primary-color);
+  border-color: var(--primary-color);
 }
 
-input {
+header button {
+  width: 50px;
+  height: 40px;
+}
+
+input.search {
   font-size: 16px;
   width: 400px;
-  height: 20px;
+  height: 40px;
   color: var(--input-text);
   background-color: var(--input-bg);
   border-radius: 5px;
   border: 1px solid var(--input-border);
   padding: 10px;
   transition: all 0.2s cubic-bezier(0.19, 0.71, 0.45, 0.94);
+  padding-left: 40px;
 }
-input:focus {
-  border-color: var(--input-focus-border);
+input.search:focus {
+  border-color: var(--primary-color);
   width: 440px;
   outline: none;
-}
-input.search {
-  padding-left: 40px;
 }
 
 .avatar {
@@ -117,6 +145,132 @@ input.search {
   transition: all 0.2s cubic-bezier(0.19, 0.71, 0.45, 0.94);
 }
 .avatar .user-picture.small:hover {
-  width: 60px;
+  width: 55px;
   cursor: pointer;
+}
+.avatar.large {
+  width: 300px;
+  height: 300px;
+  border-radius: 20%;
+  background-color: var(--primary-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--text-color);
+  background-color: var(--primary-color);
+  overflow: hidden;
+}
+.avatar.large .user-picture.large {
+  transition: all 0.2s cubic-bezier(0.19, 0.71, 0.45, 0.94);
+}
+.avatar.large .user-picture.large:hover {
+  border-radius: 10%;
+  width: 500px;
+}
+
+.tracks-container {
+  display: grid;
+  grid-template-columns: 4fr 3fr 2fr 1fr 0.2fr;
+  gap: 20px;
+  align-items: center;
+  position: relative;
+  padding: 10px 20px;
+  margin: 10px 0;
+  border-radius: 5px;
+  overflow: hidden;
+  background-color: var(--track-bg);
+  --image-size: 60px;
+}
+.tracks-container:first-child {
+  margin-top: 0;
+}
+.tracks-container .track-image-bg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 60%;
+  height: 200%;
+  opacity: 0.8;
+  filter: blur(120px);
+  border-radius: 5px;
+}
+.tracks-container .track-image-container {
+  position: relative;
+  overflow: hidden;
+  width: var(--image-size);
+  height: var(--image-size);
+  border-radius: 5px;
+}
+.tracks-container .track-image-container .track-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 5px;
+  transition: all 0.2s cubic-bezier(0.19, 0.71, 0.45, 0.94);
+}
+.tracks-container .track-image-container .track-image:hover {
+  transform: scale(1.1);
+}
+.tracks-container .track-infos {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 1;
+}
+.tracks-container .track-infos a {
+  font-weight: 600;
+  width: 300px;
+}
+.tracks-container .track-album {
+  display: flex;
+  align-items: center;
+  z-index: 1;
+}
+.tracks-container .track-album p {
+  width: 20vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-wrap: nowrap;
+}
+.tracks-container .track-album,
+.tracks-container .track-details,
+.tracks-container .track-release-date,
+.tracks-container .track-duration {
+  z-index: 1;
+}
+
+::-webkit-scrollbar {
+  width: 2px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--primary-color);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--bg-color);
+}
+
+@media screen and (max-width: 768px) {
+  input.search {
+    font-size: 16px;
+    width: 40vw;
+    height: 40px;
+    color: var(--input-text);
+    background-color: var(--input-bg);
+    border-radius: 5px;
+    border: 1px solid var(--input-border);
+    padding: 10px;
+    transition: all 0.2s cubic-bezier(0.19, 0.71, 0.45, 0.94);
+    padding-left: 40px;
+  }
+  input.search:focus {
+    border-color: var(--primary-color);
+    width: calc(40vw + 40px);
+    outline: none;
+  }
 }/*# sourceMappingURL=components.css.map */
