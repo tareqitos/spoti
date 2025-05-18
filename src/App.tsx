@@ -11,6 +11,7 @@ import { Header } from "./components/Header";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Home } from "./page/Home";
 import { UserProfile } from "./page/User";
+import { HomePageSkeleton } from "./components/ui/Skeleton";
 
 const App: FC = (): ReactElement => {
   const [theme, setTheme] = useState("dark")
@@ -40,15 +41,13 @@ const App: FC = (): ReactElement => {
     console.log(html.theme)
   }
 
-  if (!user || !playlists) return <p>Error fetching data. Please reload the page.</p>
-
   return (
     <div className="App" >
       <BrowserRouter>
-        <Header user={user} theme={theme} toggle={toggleTheme} />
+        {user && <Header user={user} theme={theme} toggle={toggleTheme} />}
         <Routes>
-          <Route index element={<Home playlists={playlists} />} />
-          <Route path="User" element={<UserProfile user={user} playlists={playlists} theme={theme} />} />
+          <Route index element={!playlists ? <HomePageSkeleton /> : <Home playlists={playlists} />} />
+          <Route path="User" element={user && playlists && <UserProfile user={user} playlists={playlists} theme={theme} />} />
         </Routes>
       </BrowserRouter>
     </div>

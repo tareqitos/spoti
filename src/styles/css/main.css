@@ -125,6 +125,7 @@ section.sidebar {
   width: 500px;
   height: 100%;
   padding: 20px;
+  overflow-x: hidden;
   overflow-y: auto;
 }
 section.sidebar .selected {

@@ -3,6 +3,10 @@ import { useGetPlaylistTracksQuery } from "../api/apiSlice";
 import { SpotifyPlaylist, SpotifyTrack, SpotifyTrackItem } from "../types";
 import { PlaylistTracks } from "../components/homepage/PlaylistTracks";
 import { Sidebar } from "../components/homepage/Sidebar";
+import { ListSkeleton, PlaylistSkeleton } from "../components/ui/Skeleton";
+
+import Skeleton from "react-loading-skeleton"
+import 'react-loading-skeleton/dist/skeleton.css'
 
 
 
@@ -11,16 +15,24 @@ interface Props {
 }
 
 
+
 export const Home = ({ playlists }: Props) => {
     const [selectedPlaylistTracksLink, setSelectedPlaylistTracksLink] = useState<string>("")
     const [selectedPlaylistName, setSelectedPlaylistName] = useState<string>("");
+    const [isLoading, setIsLoading] = useState(true)
 
     let { data: playlist_tracks } = useGetPlaylistTracksQuery(selectedPlaylistTracksLink)
     const playlistItems = playlists.items
+    const loadTimeout = () => setTimeout(() => setIsLoading(false), 700)
+
 
     const queryPlaylistTracks = (href: string, name: string) => {
-        setSelectedPlaylistTracksLink(href)
-        setSelectedPlaylistName(name)
+        setIsLoading(true)
+        if (href) {
+            setSelectedPlaylistTracksLink(href)
+            setSelectedPlaylistName(name)
+            loadTimeout()
+        }
     }
 
     useEffect(() => {
@@ -31,9 +43,9 @@ export const Home = ({ playlists }: Props) => {
         if (playlistItems.length > 0) {
             setSelectedPlaylistTracksLink(playlistItems[0].tracks.href);
             setSelectedPlaylistName(playlistItems[0].name);
+            loadTimeout()
         }
     }, [playlistItems]);
-
 
     return (
         <div className="homepage">
@@ -43,9 +55,14 @@ export const Home = ({ playlists }: Props) => {
                     selectedPlaylistName={selectedPlaylistName}
                     queryPlaylistTracks={queryPlaylistTracks}
                 />
+
             </section>
             <section className="main">
-                {playlist_tracks && <PlaylistTracks tracks={playlist_tracks} />}
+                {
+                    isLoading ?
+                        <PlaylistSkeleton /> :
+                        playlist_tracks && <PlaylistTracks tracks={playlist_tracks} />
+                }
             </section>
         </div>
     )
