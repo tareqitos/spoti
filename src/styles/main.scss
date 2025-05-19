@@ -10,6 +10,7 @@ html {
     scroll-behavior: smooth;
 }
 
+
 // HEADER
 header {
     @include Flex(row, center, center, 10px);
@@ -40,6 +41,7 @@ header {
     @include Flex(row, center, center, 10px);
     margin-top: 100px;
     height: calc(100vh - 100px);
+    padding: $auto-padding-content;
 }
 
 section.sidebar,
@@ -56,6 +58,8 @@ section.trackbar {
 
 section.trackbar {
     visibility: hidden;
+    height: 90vh;
+    border-radius: 20px;
 
     &.hidden {
         visibility: visible;
@@ -72,9 +76,9 @@ section.sidebar {
     }
 
     &.hidden {
-        width: 0;
-        opacity: 0;
-        visibility: hidden;
+        width: 100px;
+        // opacity: 0;
+        // visibility: hidden;
     }
 }
 
@@ -97,7 +101,7 @@ section.main {
 
 }
 
-.bg {
+html[data-theme="dark"] .bg {
     position: absolute;
     top: 100px;
     left: 0;
@@ -110,6 +114,10 @@ section.main {
             var(--primary-color),
             var(--secondary-color));
     filter: blur(120px);
+}
+
+html[data-theme="light"] .bg {
+    display: none;
 }
 
 .profile-container {

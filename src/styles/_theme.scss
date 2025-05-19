@@ -1,11 +1,11 @@
 html[data-theme="light"] {
-    --background-color: hsl(0, 0%, 100%);
-    --text-color: #2d2d2d;
+    --background-color: #EFF1F5;
+    --text-color: #303246;
     --link-color: #ff6b81;
     /* joyful coral */
     --border-color: #e0e0e0;
 
-    --primary-color: #ff6b81;
+    --primary-color: #259EB4;
     /* coral (main accent) */
     --secondary-color: #2acfcf;
     /* aqua (vibrant, energetic) */
@@ -15,14 +15,16 @@ html[data-theme="light"] {
     --active-color: #dcdcdc;
 
     --item-bg: #ffffff;
+    --track-bg: #CCD0DA;
+    --track-bg-opacity: #CCD0DA7e;
 
-    --button-bg: #ffffff;
+    --button-bg: #DCE0E6;
     --button-text: #ffffff;
     --button-hover-bg: #ff8293;
     --button-disabled-bg: #f5c6cb;
     --button-disabled-text: #ffffff;
 
-    --input-bg: #ffffff;
+    --input-bg: #DCE0E6;
     --input-text: #2d2d2d;
     --input-border: #e0e0e0;
     --input-focus-border: #2acfcf;

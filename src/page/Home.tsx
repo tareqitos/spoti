@@ -7,6 +7,7 @@ import { ListSkeleton, PlaylistSkeleton } from "../components/ui/Skeleton";
 
 import 'react-loading-skeleton/dist/skeleton.css'
 import { TrackBar } from "../components/homepage/TrackBar";
+import { ListMusic } from "lucide-react";
 
 
 
@@ -48,10 +49,6 @@ export const Home = ({ playlists }: Props) => {
         setSelectedTrack(null);
     }
 
-    // useEffect(() => {
-    //     console.log("SELECTED TRACK: ", selectedTrack)
-    // }, [selectedTrack])
-
     useEffect(() => {
         if (playlistItems.length > 0) {
             setSelectedPlaylistTracksLink(playlistItems[0].tracks.href);
@@ -63,11 +60,15 @@ export const Home = ({ playlists }: Props) => {
     return (
         <div className="homepage">
             <section className={`sidebar ${trackbarVisible ? "hidden" : ""}`}>
-                <Sidebar
-                    playlistItems={playlists}
-                    selectedPlaylistName={selectedPlaylistName}
-                    queryPlaylistTracks={queryPlaylistTracks}
-                />
+
+                {!trackbarVisible ?
+                    <Sidebar
+                        playlistItems={playlists}
+                        selectedPlaylistName={selectedPlaylistName}
+                        queryPlaylistTracks={queryPlaylistTracks}
+                    /> :
+                    <ListMusic onClick={hideTrackPanel} className="icons" size={40} />
+                }
             </section>
 
             <section className="main">

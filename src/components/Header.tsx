@@ -24,15 +24,15 @@ export const Header = ({ user, theme, toggle }: HeaderProps) => {
                 <Search className="search-icon" color="grey" size={24} />
                 <input className="search" placeholder='What do you want to listen to today?' />
             </div>
-            <button>
-                <Link to="/">
-                    <Home size={24} />
-                </Link>
-            </button>
+            <Link to="/">
+                <button>
+                    <Home className="icons" size={24} />
+                </button>
+            </Link>
             <button onClick={toggle}>
                 {theme === "dark" ?
-                    <Sun size={24} /> :
-                    <Moon size={24} />
+                    <Sun className="icons" size={24} /> :
+                    <Moon className="icons" size={24} />
                 }
             </button>
         </header>

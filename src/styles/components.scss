@@ -186,6 +186,16 @@ input {
             margin-top: 20px;
         }
 
+        .bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform: scale(2.5);
+            filter: blur(100px);
+            border-radius: 20px;
+
+        }
+
         .name {
             margin-top: 20px;
         }

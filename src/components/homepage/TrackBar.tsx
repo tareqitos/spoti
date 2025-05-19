@@ -29,7 +29,6 @@ export const TrackBar = ({ track, hideTrack }: Props) => {
                     className="bg"
                 />
 
-
                 <img
                     src={
                         track.album?.images[0]?.url ||
