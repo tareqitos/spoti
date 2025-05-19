@@ -5,7 +5,6 @@ import { PlaylistTracks } from "../components/homepage/PlaylistTracks";
 import { Sidebar } from "../components/homepage/Sidebar";
 import { ListSkeleton, PlaylistSkeleton } from "../components/ui/Skeleton";
 
-import Skeleton from "react-loading-skeleton"
 import 'react-loading-skeleton/dist/skeleton.css'
 import { TrackBar } from "../components/homepage/TrackBar";
 
@@ -20,6 +19,7 @@ interface Props {
 export const Home = ({ playlists }: Props) => {
     const [selectedPlaylistTracksLink, setSelectedPlaylistTracksLink] = useState<string>("")
     const [selectedPlaylistName, setSelectedPlaylistName] = useState<string>("");
+    const [selectedTrack, setSelectedTrack] = useState<SpotifyTrackItem | null>();
     const [trackbarVisible, setTrackbarVisible] = useState(false);
 
     const [isLoading, setIsLoading] = useState(true)
@@ -38,17 +38,19 @@ export const Home = ({ playlists }: Props) => {
         }
     }
 
-    const toggleTrackbar = () => {
-        if (trackbarVisible) {
-            setTrackbarVisible(false)
-        } else {
-            setTrackbarVisible(true)
-        }
+    const showTrackPanel = (track: SpotifyTrackItem) => {
+        setTrackbarVisible(true)
+        setSelectedTrack(track);
     }
 
-    useEffect(() => {
-        console.log("TRACKS: ", playlist_tracks)
-    }, [playlist_tracks])
+    const hideTrackPanel = () => {
+        setTrackbarVisible(false);
+        setSelectedTrack(null);
+    }
+
+    // useEffect(() => {
+    //     console.log("SELECTED TRACK: ", selectedTrack)
+    // }, [selectedTrack])
 
     useEffect(() => {
         if (playlistItems.length > 0) {
@@ -72,12 +74,12 @@ export const Home = ({ playlists }: Props) => {
                 {
                     isLoading ?
                         <PlaylistSkeleton /> :
-                        playlist_tracks && <PlaylistTracks tracks={playlist_tracks} toggleTrackbar={toggleTrackbar} />
+                        playlist_tracks && <PlaylistTracks tracks={playlist_tracks} showTrack={showTrackPanel} />
                 }
             </section>
 
             <section className={`trackbar ${trackbarVisible ? "hidden" : ""}`}>
-                <TrackBar />
+                {selectedTrack && <TrackBar track={selectedTrack} hideTrack={hideTrackPanel} />}
             </section>
         </div>
     )
