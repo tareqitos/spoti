@@ -1,6 +1,8 @@
 import { SpotifyTrack, SpotifyTrackItem } from "../../types";
 import { v4 as uuidv4 } from 'uuid';
-import { convertDateToLong, convertDuration } from "../helpers/helpers";
+import { convertDateToLong, convertDuration, sortAsc, sortDesc } from "../helpers/helpers";
+import { ArrowDown, ArrowUp, Funnel } from "lucide-react";
+import { useState } from "react";
 
 
 interface TracksProps {
@@ -8,16 +10,75 @@ interface TracksProps {
     showTrack: (track: SpotifyTrackItem) => void
 }
 
+interface SortState {
+    activeColumn: string | null,
+    isAscending: boolean,
+}
+
 export const PlaylistTracks = ({ tracks, showTrack }: TracksProps) => {
-    const items = tracks.items
+    const [items, setItems] = useState(tracks.items)
+    const [sortState, setSortState] = useState<SortState>({ activeColumn: null, isAscending: false });
+
+    const handleSorting = (type: string) => {
+        let sortedItems: SpotifyTrackItem[];
+        const isCurrentColumn = sortState.activeColumn === type;
+        const isAscending = isCurrentColumn ? !sortState.isAscending : true;
+
+        if (isAscending) {
+            sortedItems = sortAsc(items.map(item => item.track), type)
+        } else {
+            sortedItems = sortDesc(items.map(item => item.track), type)
+        }
+
+        setSortState({
+            activeColumn: type,
+            isAscending: isAscending
+        })
+
+        setItems(items.map((item, index) => ({
+            ...item,
+            track: sortedItems[index]
+        })));
+
+    }
+
+    const SortButton = ({ type }: { type: string }) => {
+        const isActive = sortState.activeColumn === type
+        const isAscending = isActive && sortState.isAscending
+        const buttonSize = 16;
+
+        return (
+            <button onClick={() => handleSorting(type)}>
+                {isActive ? (
+                    isAscending ? <ArrowDown className="icons" size={buttonSize} /> : <ArrowUp className="icons" size={buttonSize} />
+                ) : (<ArrowUp className="icons" size={buttonSize} />)
+                }
+            </button>
+        );
+    };
+
+
 
     return (
         <div className="tracks-wrapper">
+
             <div className="tracks-container header">
-                <span>Title</span>
-                <span>Album</span>
-                <span>Release date</span>
-                <span>Duration</span>
+                <div className="sort-container">
+                    <span>Title</span>
+                    <SortButton type="title" />
+                </div>
+                <div className="sort-container">
+                    <span>Album</span>
+                    <SortButton type="album" />
+                </div>
+                <div className="sort-container">
+                    <span>Release date</span>
+                    <SortButton type="release_date" />
+                </div>
+                <div className="sort-container">
+                    <span>Duration</span>
+                    <SortButton type="duration" />
+                </div>
             </div>
             {
                 items.length !== undefined ?

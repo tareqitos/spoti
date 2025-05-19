@@ -92,6 +92,17 @@ input {
 
     &:first-child {
         margin-top: 0;
+        margin-bottom: 20px;
+    }
+
+    .sort-container {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        button {
+            height: 18px;
+        }
     }
 
     .track-image-bg {

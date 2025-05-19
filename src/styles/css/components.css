@@ -193,6 +193,15 @@ input.search:focus {
 }
 .tracks-container:first-child {
   margin-top: 0;
+  margin-bottom: 20px;
+}
+.tracks-container .sort-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.tracks-container .sort-container button {
+  height: 18px;
 }
 .tracks-container .track-image-bg {
   position: absolute;
