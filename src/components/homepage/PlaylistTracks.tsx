@@ -22,6 +22,12 @@ export const PlaylistTracks = ({ tracks, toggleTrackbar }: TracksProps) => {
 
     return (
         <div className="tracks-wrapper">
+            <div className="tracks-container header">
+                <span>Title</span>
+                <span>Album</span>
+                <span>Release date</span>
+                <span>Duration</span>
+            </div>
             {
                 items.length !== undefined ?
                     items.map(item => (
