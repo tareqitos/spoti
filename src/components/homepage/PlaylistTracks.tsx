@@ -1,24 +1,15 @@
-import { SpotifyTrack } from "../../types";
+import { SpotifyTrack, SpotifyTrackItem } from "../../types";
 import { v4 as uuidv4 } from 'uuid';
+import { convertDateToLong, convertDuration } from "../helpers/helpers";
 
 
 interface TracksProps {
     tracks: SpotifyTrack,
-    toggleTrackbar: () => void,
+    showTrack: (track: SpotifyTrackItem) => void
 }
 
-export const PlaylistTracks = ({ tracks, toggleTrackbar }: TracksProps) => {
+export const PlaylistTracks = ({ tracks, showTrack }: TracksProps) => {
     const items = tracks.items
-
-    const convertDuration = (durationMs: number) => {
-        const minutes = Math.floor(durationMs / 60000);
-        const seconds = Math.floor((durationMs % 60000) / 1000);
-        return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-    };
-
-    const convertDateToLong = (date: string) => {
-        return new Date(date).toLocaleDateString("en", { day: "numeric", month: "long", year: "numeric" })
-    }
 
     return (
         <div className="tracks-wrapper">
@@ -58,7 +49,7 @@ export const PlaylistTracks = ({ tracks, toggleTrackbar }: TracksProps) => {
 
                                 </div>
                                 <div className="track-details">
-                                    <a onClick={toggleTrackbar}>{item.track.name}</a>
+                                    <a onClick={() => showTrack(item.track)}>{item.track.name}</a>
                                     {item.track.album.artists.map(artist => (
                                         <p key={uuidv4()}>{artist.name}</p>
                                     ))}

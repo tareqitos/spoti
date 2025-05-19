@@ -1,7 +1,62 @@
-export const TrackBar = () => {
-    return (
-        <div>
+import { useEffect } from "react"
+import { SpotifyTrack, SpotifyTrackItem } from "../../types"
+import { convertDateToLong } from "../helpers/helpers"
+import { X } from "lucide-react"
 
+interface Props {
+    track: SpotifyTrackItem,
+    hideTrack: () => void
+}
+
+export const TrackBar = ({ track, hideTrack }: Props) => {
+
+
+    useEffect(() => {
+        console.log("TRACK: ", track)
+    }, [track])
+
+    return (
+        <div className="track-container">
+            <X className="icons" onClick={hideTrack} style={{ float: "right" }} />
+            <div className="track image">
+                <img
+                    src={
+                        track.album?.images[0]?.url ||
+                        track.album?.images[1]?.url ||
+                        track.album?.images[2]?.url ||
+                        "./vinyl.png"}
+                    alt={track.name}
+                    className="bg"
+                />
+
+
+                <img
+                    src={
+                        track.album?.images[0]?.url ||
+                        track.album?.images[1]?.url ||
+                        track.album?.images[2]?.url ||
+                        "./vinyl.png"}
+                    alt={track.name}
+                    className="image"
+                />
+            </div>
+
+            <div className="track infos">
+                <h2 className="name">{track.name}</h2>
+                <div className="artists">
+                    {track.artists.map(artist => (
+                        <p key={artist.id} className="artist">{artist.name}</p>
+                    ))}
+                </div>
+                <div className="card-container first">
+                    <h2>Album</h2>
+                    <p className="name">{track.album.name}</p>
+                </div>
+                <div className="card-container">
+                    <h2>Release date</h2>
+                    <p className="name">{convertDateToLong(track.album.release_date)}</p>
+                </div>
+            </div>
         </div>
     )
 }
