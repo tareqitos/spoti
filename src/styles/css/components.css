@@ -44,6 +44,7 @@ html[data-theme=dark] {
   --active-color: #2c2c2c;
   --item-bg: #32364A;
   --track-bg: #13151f;
+  --track-bg-opacity: #13151f7e;
   --button-bg: #32364A;
   --button-text: #ffffff;
   --button-hover-bg: #ff8293;
@@ -127,6 +128,15 @@ input.search:focus {
   border-color: var(--primary-color);
   width: 440px;
   outline: none;
+}
+
+.icons {
+  color: var(--text-color);
+  transition: all 0.2s cubic-bezier(0.19, 0.71, 0.45, 0.94);
+}
+.icons:hover {
+  color: var(--primary-color);
+  cursor: pointer;
 }
 
 .avatar {
@@ -240,6 +250,38 @@ input.search:focus {
 .tracks-container .track-release-date,
 .tracks-container .track-duration {
   z-index: 1;
+}
+
+.track-container {
+  position: relative;
+  width: 100%;
+  padding: 10px;
+}
+.track-container .track .image {
+  width: 100%;
+  border-radius: 20px;
+  margin-top: 20px;
+}
+.track-container .track .name {
+  margin-top: 20px;
+}
+.track-container .track .artists {
+  display: flex;
+  line-height: 2;
+  gap: 5px;
+}
+.track-container .track .card-container {
+  background-color: var(--track-bg-opacity);
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 25px;
+  position: relative;
+}
+.track-container .track .card-container.first {
+  margin-top: 60px;
+}
+.track-container .track .card-container .name {
+  margin-top: 10px;
 }
 
 ::-webkit-scrollbar {

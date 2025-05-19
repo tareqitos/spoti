@@ -34,6 +34,16 @@ input {
     }
 }
 
+.icons {
+    color: var(--text-color);
+    transition: $transition;
+
+    &:hover {
+        color: var(--primary-color);
+        cursor: pointer;
+    }
+}
+
 .avatar {
     @include Avatar(50px, 50px, 50%);
     background-color: var(--primary-color);
@@ -64,6 +74,8 @@ input {
     }
 }
 
+
+// PLAYLIST
 
 .tracks-container {
     display: grid;
@@ -146,6 +158,48 @@ input {
     .track-release-date,
     .track-duration {
         z-index: 1;
+    }
+}
+
+// TRACK INFORMATION
+
+.track-container {
+    position: relative;
+    width: 100%;
+    padding: 10px;
+
+    .track {
+        .image {
+            width: 100%;
+            border-radius: 20px;
+            margin-top: 20px;
+        }
+
+        .name {
+            margin-top: 20px;
+        }
+
+        .artists {
+            display: flex;
+            line-height: 2;
+            gap: 5px;
+        }
+
+        .card-container {
+            background-color: var(--track-bg-opacity);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 25px;
+            position: relative;
+
+            &.first {
+                margin-top: 60px;
+            }
+
+            .name {
+                margin-top: 10px;
+            }
+        }
     }
 }
 
