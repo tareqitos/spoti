@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 import { ArrowDown, ArrowUp, Funnel } from "lucide-react";
 import { SpotifyTrack, SpotifyTrackItem } from "../../types";
 import { convertDateToLong, convertDuration, sortAsc, sortDesc } from "../helpers/helpers";
+import { useGetPlaylistsQuery, useGetPlaylistTracksQuery } from "../../api/apiSlice";
 
 interface TracksProps {
     tracks: SpotifyTrack,
@@ -17,6 +18,18 @@ interface SortState {
 export const PlaylistTracks = ({ tracks, showTrack }: TracksProps) => {
     const [items, setItems] = useState(tracks.items);
     const [sortState, setSortState] = useState<SortState>({ activeColumn: null, isAscending: false });
+    const [pages, setPages] = useState({ previous: tracks.previous || null, next: tracks.next || null })
+    const [pageNumber, setPageNumber] = useState(1)
+    const { data: previousTracks } = useGetPlaylistTracksQuery(
+        pages.previous || tracks.previous || "",
+        { skip: !(pages.previous || tracks.previous) }
+    );
+
+    const { data: nextTracks } = useGetPlaylistTracksQuery(
+        pages.next || tracks.next || "",
+        { skip: !(pages.next || tracks.next) }
+    );
+
 
     const handleSorting = (type: string) => {
         let sortedItems: SpotifyTrackItem[];
@@ -40,6 +53,28 @@ export const PlaylistTracks = ({ tracks, showTrack }: TracksProps) => {
         })));
     };
 
+    const loadNext = () => {
+        if (nextTracks && pages.next) {
+            setItems(nextTracks.items);
+            setPages({
+                previous: nextTracks.previous,
+                next: nextTracks.next
+            })
+            setPageNumber(pageNumber + 1)
+        }
+    }
+
+    const loadPrevious = () => {
+        if (previousTracks && pages.previous) {
+            setItems(previousTracks.items);
+            setPages({
+                previous: previousTracks.previous,
+                next: previousTracks.next
+            })
+            setPageNumber(pageNumber - 1)
+        }
+    }
+
     const SortButton = ({ type }: { type: string }) => {
         const isActive = sortState.activeColumn === type;
         const isAscending = isActive && sortState.isAscending;
@@ -57,25 +92,24 @@ export const PlaylistTracks = ({ tracks, showTrack }: TracksProps) => {
 
     return (
         <div className="tracks-wrapper">
+            <h1 className="number-titles">{tracks.total} titles</h1>
 
-            <div >
-                <div className="tracks-container header">
-                    <div className="sort-container">
-                        <span>Title</span>
-                        <SortButton type="title" />
-                    </div>
-                    <div className="sort-container album">
-                        <span>Album</span>
-                        <SortButton type="album" />
-                    </div>
-                    <div className="sort-container release">
-                        <span>Release date</span>
-                        <SortButton type="release_date" />
-                    </div>
-                    <div className="sort-container duration">
-                        <span>Duration</span>
-                        <SortButton type="duration" />
-                    </div>
+            <div className="tracks-container tracks-header">
+                <div className="sort-container">
+                    <span>Title</span>
+                    <SortButton type="title" />
+                </div>
+                <div className="sort-container album">
+                    <span>Album</span>
+                    <SortButton type="album" />
+                </div>
+                <div className="sort-container release">
+                    <span>Release date</span>
+                    <SortButton type="release_date" />
+                </div>
+                <div className="sort-container duration">
+                    <span>Duration</span>
+                    <SortButton type="duration" />
                 </div>
             </div>
             {
@@ -131,6 +165,18 @@ export const PlaylistTracks = ({ tracks, showTrack }: TracksProps) => {
                     :
                     <p>Nothing here</p>
             }
+            <div className="pages-button-container">
+                {pages.previous &&
+                    <>
+                        <button className="previous" onClick={loadPrevious}>Previous page</button>
+                        <h1>{pageNumber}</h1>
+                    </>
+                }
+
+                {pages.next &&
+                    <button className="next" onClick={loadNext}>Next page</button>
+                }
+            </div>
         </div>
     )
 }

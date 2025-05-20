@@ -28,7 +28,7 @@ const App: FC = (): ReactElement => {
   });
 
   if (!accessToken) {
-    return <div>Loading... Please try to refresh the page  </div>;
+    return <h1 style={{ textAlign: "center", marginTop: 200 }}>Loading... Please try to refresh the page </h1>;
   }
 
   const toggleTheme = () => {

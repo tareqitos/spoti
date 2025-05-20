@@ -109,6 +109,26 @@ select {
 
 // PLAYLIST
 
+.number-titles {
+    margin-bottom: 20px;
+}
+
+.pages-button-container {
+    @include Flex(row, center, center, 20px);
+    margin: 20px auto;
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px 0;
+}
+
+.previous,
+.next {
+    @include FontProperties(16px, 400, 1.2);
+    color: var(--text-color);
+    padding: 10px 20px;
+}
+
+
 .tracks-container {
     display: grid;
     grid-template-columns: 4fr 3fr 2fr 1fr .2fr;
@@ -121,6 +141,18 @@ select {
     overflow: hidden;
     background-color: var(--track-bg);
     --image-size: 60px;
+
+    &.tracks-header {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        background-color: var(--track-bg);
+        margin-bottom: 20px;
+        padding: 10px 20px;
+        border-radius: 5px;
+        box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+    }
+
 
     @media screen and (max-width: 1200px) {
         grid-template-columns: 3fr 2fr 2fr
@@ -313,6 +345,13 @@ select {
         border-radius: 10px;
         background-color: var(--track-bg);
         overflow: scroll;
+
+        @media screen and (max-width: 768px) {
+            position: fixed;
+            width: unset;
+            margin: 10px;
+
+        }
 
         .result {
             @include Flex(row, flex-start, center, 10px);

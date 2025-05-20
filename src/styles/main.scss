@@ -63,6 +63,7 @@ section.trackbar {
     right: 0;
     width: 400px;
     height: 80%;
+    overflow-y: hidden;
     transform: translate(120%, -50%);
     border-radius: 20px;
     margin-right: 50px;
