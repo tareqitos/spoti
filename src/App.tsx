@@ -2,7 +2,7 @@ import "./App.css";
 import './styles/main.scss';
 import './styles/components.scss';
 
-import { FC, ReactElement, useEffect, useState } from "react";
+import { FC, ReactElement, useState } from "react";
 import { useSelector } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
@@ -22,13 +22,19 @@ const App: FC = (): ReactElement => {
   const [trackbarVisible, setTrackbarVisible] = useState(false);
 
   const accessToken = useSelector(authSelectors.selectAccessToken);
-  const { data: playlists } = useGetPlaylistsQuery();
-  const { data: user } = useGetUserQuery(undefined, {
+  const { data: playlists, isLoading: isLoadingPlaylists } = useGetPlaylistsQuery(undefined, {
+    skip: !accessToken,
+  });
+  const { data: user, isLoading: isLoadingUser } = useGetUserQuery(undefined, {
     skip: !accessToken,
   });
 
   if (!accessToken) {
     return <h1 style={{ textAlign: "center", marginTop: 200 }}>Loading... Please try to refresh the page </h1>;
+  }
+
+  if (isLoadingUser || isLoadingPlaylists) {
+    return <HomePageSkeleton />;
   }
 
   const toggleTheme = () => {
