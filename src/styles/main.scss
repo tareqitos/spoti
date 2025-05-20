@@ -19,7 +19,6 @@ header {
     right: 0;
     z-index: 1000;
     background-color: var(--background-color);
-
     padding: $auto-padding;
     text-align: center;
 }
@@ -40,31 +39,63 @@ header {
     @include Flex(row, center, center, 10px);
     margin-top: 100px;
     height: calc(100vh - 100px);
+    padding: $auto-padding-content;
+
+    @media screen and (max-width: 768px) {
+        padding: $auto-padding-content-mobile;
+    }
 }
 
 section.sidebar,
 section.trackbar {
     @include Flex(column, flex-start, flex-start, 15px);
-    width: 0;
-    height: 100%;
-    padding: 20px;
+    padding: 0 20px;
     overflow-x: hidden;
     overflow-y: auto;
     transition: $transition-fast;
-
 }
 
 section.trackbar {
-    visibility: hidden;
+    visibility: visible;
+    position: fixed;
+    top: 50%;
+    bottom: 50%;
+    right: 0;
+    width: 400px;
+    height: 80%;
+    overflow-y: hidden;
+    transform: translate(120%, -50%);
+    border-radius: 20px;
+    margin-right: 50px;
+    z-index: 1000;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    background-color: var(--background-color);
 
-    &.hidden {
+    &.show {
         visibility: visible;
-        width: 50vw;
+        transform: translate(0, -50%);
+
+        @media screen and (max-width: 500px) {
+            width: 90vw;
+            left: 50%;
+            right: 50%;
+            transform: translate(-50%, -50%);
+        }
     }
 }
 
 section.sidebar {
     width: 500px;
+    height: 100%;
+
+    div {
+        padding-bottom: 10px;
+
+        a {
+            @include FontProperties(18px, 400, 1.2);
+            ;
+        }
+    }
 
     .selected {
         color: var(--primary-color);
@@ -72,9 +103,12 @@ section.sidebar {
     }
 
     &.hidden {
-        width: 0;
-        opacity: 0;
-        visibility: hidden;
+        width: 100px;
+    }
+
+    @media screen and (max-width: 1200px) {
+        display: none;
+
     }
 }
 
@@ -82,8 +116,7 @@ section.main {
     width: 100%;
     height: 100%;
     overflow-y: auto;
-    padding: 20px;
-    // background-color: blue;
+    padding: 0 20px;
 }
 
 
@@ -95,14 +128,16 @@ section.main {
     margin-top: 80px;
     padding: $auto-padding-content;
 
+    @media screen and (max-width: 768px) {
+        padding: $auto-padding-content-mobile;
+    }
+
 }
 
-.bg {
+html[data-theme="dark"] .bg {
     position: absolute;
-    top: 100px;
-    left: 0;
-    width: 100%;
-    height: 30vh;
+    width: 100vw;
+    height: 40vh;
     z-index: -1;
     opacity: .7;
     overflow-y: hidden;
@@ -112,11 +147,21 @@ section.main {
     filter: blur(120px);
 }
 
+html[data-theme="light"] .bg {
+    position: absolute;
+    width: 100vw;
+    height: calc(100% + 100px);
+    z-index: -1;
+    opacity: 0;
+    background: var(--track-bg);
+}
+
 .profile-container {
     @include Flex(row, center, center, 50px);
     width: 100%;
     max-width: 1200px;
     margin: 100px auto;
+    position: relative
 }
 
 .name-container {
@@ -139,11 +184,18 @@ section.main {
     .playlist-toggle-button {
         @include Flex(row, flex-start, center, 10px);
         @include FontProperties(24px, 400, 1.2);
+        color: var(--text-color);
         padding: 10px 20px;
         background: none;
         border: none;
         border-radius: 0;
         border-bottom: 1px solid transparent;
+
+        &:hover {
+            color: var(--primary-color);
+            cursor: pointer;
+            border-bottom: 1px solid var(--text-color);
+        }
 
         &.active-toggle {
             border-color: var(--text-color);
@@ -164,7 +216,6 @@ section.main {
     margin: 25px auto;
 
     .playlist-item {
-
         .playlist-name {
             @include FontProperties(18px, 600, 1.2);
             margin-top: 10px;
@@ -189,27 +240,22 @@ section.main {
                 border-radius: 5px;
                 transition: $transition;
 
-
                 &:hover {
                     transform: scale(1.1);
                 }
             }
         }
     }
-
 }
 
-
-
 @media screen and (max-width: 768px) {
-
     .profile-container {
         flex-direction: column;
         margin: 50px auto;
     }
 
     .playlist-list-container {
-        --image-size: 200px;
+        --image-size: 150px;
     }
 
     .playlist-toggle-container {

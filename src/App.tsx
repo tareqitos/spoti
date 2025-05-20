@@ -1,54 +1,91 @@
 import "./App.css";
+import './styles/main.scss';
+import './styles/components.scss';
 
-import { FC, ReactElement, useEffect, useState } from "react";
+import { FC, ReactElement, useState } from "react";
 import { useSelector } from "react-redux";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import { authSelectors } from "./containers/auth/selectors";
-import './styles/main.scss'
-import './styles/components.scss'
-import { useGetPlaylistsQuery, useGetPlaylistTracksQuery, useGetSearchTrackResultQuery, useGetUserQuery } from "./api/apiSlice";
+import { useGetPlaylistsQuery, useGetUserQuery } from "./api/apiSlice";
 import { Header } from "./components/Header";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Home } from "./page/Home";
 import { UserProfile } from "./page/User";
 import { HomePageSkeleton } from "./components/ui/Skeleton";
+import { SpotifyTrackItem } from "./types";
+import { TrackBar } from "./components/homepage/TrackBar";
 
 const App: FC = (): ReactElement => {
-  const [theme, setTheme] = useState("dark")
-  const [loading, setLoading] = useState(true);
-  const accessToken = useSelector(authSelectors.selectAccessToken);
+  const [theme, setTheme] = useState("dark");
+  const [selectedTrack, setSelectedTrack] = useState<SpotifyTrackItem | null>(null);
+  const [searchResults, setSearchResults] = useState<SpotifyTrackItem[] | null>(null);
+  const [trackbarVisible, setTrackbarVisible] = useState(false);
 
-  // TODO: You can access user data and now fetch user's playlists
-  const { data: playlists } = useGetPlaylistsQuery()
-  // const { data: playlist_tracks } = useGetPlaylistTracksQuery(playlists?.items[0].tracks.href || "")
-  // const { data: track } = useGetSearchTrackResultQuery()
-  const { data: user } = useGetUserQuery(undefined, {
-    skip: !accessToken
+  const accessToken = useSelector(authSelectors.selectAccessToken);
+  const { data: playlists, isLoading: isLoadingPlaylists } = useGetPlaylistsQuery(undefined, {
+    skip: !accessToken,
+  });
+  const { data: user, isLoading: isLoadingUser } = useGetUserQuery(undefined, {
+    skip: !accessToken,
   });
 
-  useEffect(() => {
-    if (user || playlists) {
-      setLoading(false)
-    }
-    // console.log(playlists)
-  }, [])
+  if (!accessToken) {
+    return <h1 style={{ textAlign: "center", marginTop: 200 }}>Loading... Please try to refresh the page </h1>;
+  }
 
+  if (isLoadingUser || isLoadingPlaylists) {
+    return <HomePageSkeleton />;
+  }
 
   const toggleTheme = () => {
-    const html = document.documentElement.dataset
+    const html = document.documentElement.dataset;
     html.theme = html.theme === "light" ? "dark" : "light";
-    setTheme(html.theme)
-    console.log(html.theme)
-  }
+    setTheme(html.theme);
+  };
+
+  const setTrack = (track: SpotifyTrackItem | null) => {
+    setSelectedTrack(track);
+    setTrackbarVisible(true);
+  };
+
+  const hideTrackPanel = () => {
+    if (trackbarVisible) {
+      setSelectedTrack(null);
+      setTrackbarVisible(false);
+    }
+  };
 
   return (
     <div className="App" >
       <BrowserRouter>
-        {user && <Header user={user} theme={theme} toggle={toggleTheme} />}
+        {user &&
+          <Header
+            user={user}
+            theme={theme}
+            toggle={toggleTheme}
+            searchResults={searchResults}
+            setSearchResults={setSearchResults}
+            setTrack={setTrack}
+            hideTrack={hideTrackPanel}
+          />
+        }
         <Routes>
-          <Route index element={!playlists ? <HomePageSkeleton /> : <Home playlists={playlists} />} />
-          <Route path="User" element={user && playlists && <UserProfile user={user} playlists={playlists} theme={theme} />} />
+          <Route index element={
+            playlists ?
+              <Home
+                playlists={playlists}
+                setSelectedTrack={setTrack}
+                setTrackbarVisible={setTrackbarVisible}
+              /> : <HomePageSkeleton />}
+          />
+          <Route
+            path="user"
+            element={user && playlists ? <UserProfile user={user} playlists={playlists} theme={theme} /> : <div>Loading User Profile...</div>}
+          />
         </Routes>
+        <section className={`trackbar ${trackbarVisible ? "show" : ""}`}>
+          {selectedTrack && <TrackBar track={selectedTrack} hideTrack={hideTrackPanel} />}
+        </section>
       </BrowserRouter>
     </div>
   );

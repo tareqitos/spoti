@@ -14,7 +14,6 @@ export const UserPlaylists = ({ playlists }: PlaylistsProps) => {
 
     const [playlistToShow, setPlaylistToShow] = useState(publicPlaylist);
     const [isTotalPlaylist, setIsTotalPlaylist] = useState(false)
-    console.log(playlistsItem)
 
     const handlePlaylistsToShow = () => {
         if (isTotalPlaylist) {

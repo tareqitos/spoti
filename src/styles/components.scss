@@ -23,7 +23,7 @@ button {
 }
 
 header button {
-    width: 50px;
+    padding: 0 10px;
     height: 40px;
 }
 
@@ -34,9 +34,45 @@ input {
     }
 }
 
+select {
+    @include FontProperties(16px, 400px);
+    padding: 5px 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    background-color: var(--input-bg);
+    color: var(--input-text);
+    border: 1px solid var(--input-border);
+    transition: $transition;
+    width: 50%;
+    outline: none;
+    cursor: pointer;
+
+    @media screen and (min-width: 1200px) {
+        display: none;
+    }
+
+}
+
+.icons {
+    color: var(--text-color);
+    @include Flex(row, center, center, 0px);
+    transition: $transition;
+
+    &:hover {
+        color: var(--primary-color);
+        cursor: pointer;
+    }
+}
+
+.close {
+    position: absolute;
+    padding: 5px 5px;
+    left: -10px;
+    background-color: var(--track-bg)
+}
+
 .avatar {
     @include Avatar(50px, 50px, 50%);
-    background-color: var(--primary-color);
     overflow: hidden;
 
     .user-picture.small {
@@ -46,11 +82,17 @@ input {
             width: 55px;
             cursor: pointer;
         }
+
+
+    }
+
+    @media screen and (max-width: 500px) {
+        display: none;
+
     }
 
     &.large {
         @include Avatar(300px, 300px, 20%);
-        background-color: var(--primary-color);
         overflow: hidden;
 
         .user-picture.large {
@@ -62,6 +104,28 @@ input {
             }
         }
     }
+}
+
+
+// PLAYLIST
+
+.number-titles {
+    margin-bottom: 20px;
+}
+
+.pages-button-container {
+    @include Flex(row, center, center, 20px);
+    margin: 20px auto;
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px 0;
+}
+
+.previous,
+.next {
+    @include FontProperties(16px, 400, 1.2);
+    color: var(--text-color);
+    padding: 10px 20px;
 }
 
 
@@ -78,9 +142,53 @@ input {
     background-color: var(--track-bg);
     --image-size: 60px;
 
+    &.tracks-header {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        background-color: var(--track-bg);
+        margin-bottom: 20px;
+        padding: 10px 20px;
+        border-radius: 5px;
+        box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+    }
+
+
+    @media screen and (max-width: 1200px) {
+        grid-template-columns: 3fr 2fr 2fr
+    }
+
+    @media screen and (max-width: 768px) {
+        grid-template-columns: 2fr 1fr;
+    }
+
     &:first-child {
         margin-top: 0;
+        margin-bottom: 20px;
     }
+
+    .sort-container {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        button {
+            height: 18px;
+        }
+
+        &.duration {
+            @media screen and (max-width: 1200px) {
+                display: none;
+            }
+        }
+
+        &.release {
+            @media screen and (max-width: 768px) {
+                display: none;
+            }
+        }
+    }
+
 
     .track-image-bg {
         position: absolute;
@@ -147,9 +255,124 @@ input {
     .track-duration {
         z-index: 1;
     }
+
+    .track-release-date,
+    .track-duration {
+        z-index: 1;
+
+        @media screen and (max-width: 768px) {
+            display: none;
+        }
+    }
+
+
+    .track-duration {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 14px;
+        color: var(--text-color);
+
+        @media screen and (max-width: 1200px) {
+            display: none;
+        }
+    }
 }
 
-// custom scrollbar
+// TRACK INFORMATION
+
+.track-container {
+    position: relative;
+    width: 100%;
+    padding: 10px;
+
+    .track {
+        .image {
+            width: 100%;
+            border-radius: 20px;
+            margin-top: 20px;
+        }
+
+        .bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform: scale(2.5);
+            filter: blur(100px);
+            border-radius: 20px;
+        }
+
+        .name {
+            margin-top: 20px;
+        }
+
+        .artists {
+            display: flex;
+            line-height: 2;
+            gap: 5px;
+        }
+
+        .card-container {
+            background-color: var(--track-bg-opacity);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 25px;
+            position: relative;
+
+            &.first {
+                margin-top: 60px;
+            }
+
+            .name {
+                margin-top: 10px;
+            }
+        }
+    }
+}
+
+// SEARCH RESULTS
+.search-wrapper {
+    position: relative;
+
+    .search-results-container {
+        @include Flex(column, flex-start, flex-start, 0px);
+        position: absolute;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 50vh;
+        margin-top: 10px;
+        border-radius: 10px;
+        background-color: var(--track-bg);
+        overflow: scroll;
+
+        @media screen and (max-width: 768px) {
+            position: fixed;
+            width: unset;
+            margin: 10px;
+
+        }
+
+        .result {
+            @include Flex(row, flex-start, center, 10px);
+            width: 100%;
+            padding: 10px 20px;
+
+            div {
+                @include Flex(column, flex-start, flex-start, 10px);
+                text-align: left;
+            }
+
+
+            &:hover {
+                background-color: var(--item-bg);
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+// CUSTOM SCROLLBAR
 ::-webkit-scrollbar {
     width: 2px;
 }
@@ -164,7 +387,6 @@ input {
 }
 
 
-// media screen for small screen
 @media screen and (max-width: 768px) {
     input.search {
         @include Input(16px, 40vw, 40px, 5px);
