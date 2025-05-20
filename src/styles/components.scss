@@ -65,7 +65,6 @@ select {
 
 .avatar {
     @include Avatar(50px, 50px, 50%);
-    background-color: var(--primary-color);
     overflow: hidden;
 
     .user-picture.small {
@@ -86,7 +85,6 @@ select {
 
     &.large {
         @include Avatar(300px, 300px, 20%);
-        background-color: var(--primary-color);
         overflow: hidden;
 
         .user-picture.large {
@@ -347,7 +345,6 @@ select {
 }
 
 
-// media screen for small screen
 @media screen and (max-width: 768px) {
     input.search {
         @include Input(16px, 40vw, 40px, 5px);
