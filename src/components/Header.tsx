@@ -1,7 +1,7 @@
 import { Home, Moon, Search, Sun } from 'lucide-react';
 import '../styles/components.scss'
 import { SpotifyTrackItem, User } from '../types'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Dispatch, SetStateAction, useRef, useState } from 'react';
 import { useGetSearchTrackResultQuery } from '../api/apiSlice';
 
@@ -19,6 +19,7 @@ interface HeaderProps {
 export const Header = ({ user, theme, toggle, searchResults, setSearchResults, setTrack, hideTrack }: HeaderProps) => {
     const [resultsVisible, setResultsVisible] = useState(false)
     const inputRef = useRef<HTMLInputElement | null>(null)
+    const navigate = useNavigate()
     const { data: tracks } = useGetSearchTrackResultQuery(inputRef.current?.value || ".")
 
     const fetchSearchResults = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -94,11 +95,12 @@ export const Header = ({ user, theme, toggle, searchResults, setSearchResults, s
                     </div>
                 }
             </div>
-            <Link to="/">
-                <button onClick={hideTrack}>
-                    <Home className="icons" size={24} />
-                </button>
-            </Link>
+            <button onClick={() => {
+                hideTrack()
+                navigate('/')
+            }}>
+                <Home className="icons" size={24} />
+            </button>
             <button onClick={toggle}>
                 {theme === "dark" ?
                     <Sun className="icons" size={24} /> :

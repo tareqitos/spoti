@@ -110,7 +110,7 @@ button:hover {
 }
 
 header button {
-  width: 50px;
+  padding: 0 10px;
   height: 40px;
 }
 
@@ -155,11 +155,23 @@ select {
 
 .icons {
   color: var(--text-color);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 0px;
   transition: all 0.2s cubic-bezier(0.19, 0.71, 0.45, 0.94);
 }
 .icons:hover {
   color: var(--primary-color);
   cursor: pointer;
+}
+
+.close {
+  position: absolute;
+  padding: 5px 5px;
+  left: -10px;
+  background-color: var(--track-bg);
 }
 
 .avatar {

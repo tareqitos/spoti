@@ -23,7 +23,7 @@ button {
 }
 
 header button {
-    width: 50px;
+    padding: 0 10px;
     height: 40px;
 }
 
@@ -55,12 +55,20 @@ select {
 
 .icons {
     color: var(--text-color);
+    @include Flex(row, center, center, 0px);
     transition: $transition;
 
     &:hover {
         color: var(--primary-color);
         cursor: pointer;
     }
+}
+
+.close {
+    position: absolute;
+    padding: 5px 5px;
+    left: -10px;
+    background-color: var(--track-bg)
 }
 
 .avatar {

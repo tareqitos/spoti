@@ -12,7 +12,9 @@ export const TrackBar = ({ track, hideTrack }: Props) => {
 
     return (
         <div className="track-container">
-            <X className="icons" onClick={hideTrack} style={{ float: "right" }} />
+            <button onClick={hideTrack} className="close">
+                <X className="icons" />
+            </button>
             <div className="track image">
                 <img
                     src={
