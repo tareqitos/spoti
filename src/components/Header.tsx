@@ -2,7 +2,7 @@ import { Home, Moon, Search, Sun } from 'lucide-react';
 import '../styles/components.scss'
 import { SpotifyTrackItem, User } from '../types'
 import { Link, useNavigate } from 'react-router-dom';
-import { Dispatch, SetStateAction, useRef, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import { useGetSearchTrackResultQuery } from '../api/apiSlice';
 
 interface HeaderProps {
@@ -46,6 +46,23 @@ export const Header = ({ user, theme, toggle, searchResults, setSearchResults, s
             inputRef.current.value = "";
         }
     }
+
+    const handleClickOutside = (event: MouseEvent) => {
+        if (
+            inputRef.current &&
+            !inputRef.current.contains(event.target as Node) &&
+            !(event.target as HTMLElement).closest('.search-results-container')
+        ) {
+            setResultsVisible(false);
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
 
     return (
         <header>
