@@ -132,8 +132,6 @@ section.trackbar {
   justify-content: flex-start;
   align-items: flex-start;
   gap: 15px;
-  width: 0;
-  height: 100%;
   padding: 0 20px;
   overflow-x: hidden;
   overflow-y: auto;
@@ -141,34 +139,28 @@ section.trackbar {
 }
 
 section.trackbar {
-  visibility: hidden;
+  visibility: visible;
+  position: fixed;
+  top: 50%;
+  bottom: 50%;
+  right: 0;
+  width: 400px;
+  height: 80%;
+  transform: translate(120%, -50%);
   border-radius: 20px;
-}
-@media screen and (max-width: 768px) {
-  section.trackbar {
-    position: fixed;
-    z-index: 1000;
-    background-color: var(--background-color);
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 60vw;
-    height: 50%;
-    margin: 10px auto;
-  }
+  margin-right: 50px;
+  z-index: 1000;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  background-color: var(--background-color);
 }
 section.trackbar.show {
   visibility: visible;
-  width: 600px;
-}
-@media screen and (max-width: 768px) {
-  section.trackbar.show {
-    width: 70%;
-  }
+  transform: translate(0, -50%);
 }
 
 section.sidebar {
   width: 500px;
+  height: 100%;
 }
 section.sidebar div {
   padding-bottom: 10px;
@@ -212,10 +204,8 @@ section.main {
 
 html[data-theme=dark] .bg {
   position: absolute;
-  top: 100px;
-  left: 0;
-  width: 100%;
-  height: 30vh;
+  width: 100vw;
+  height: 40vh;
   z-index: -1;
   opacity: 0.7;
   overflow-y: hidden;
@@ -224,7 +214,12 @@ html[data-theme=dark] .bg {
 }
 
 html[data-theme=light] .bg {
-  display: none;
+  position: absolute;
+  width: 100vw;
+  height: calc(100% + 100px);
+  z-index: -1;
+  opacity: 0;
+  background: var(--track-bg);
 }
 
 .profile-container {
@@ -236,6 +231,7 @@ html[data-theme=light] .bg {
   width: 100%;
   max-width: 1200px;
   margin: 100px auto;
+  position: relative;
 }
 
 .name-container {
@@ -277,11 +273,17 @@ html[data-theme=light] .bg {
   font-size: 24px;
   font-weight: 400;
   line-height: 1.2;
+  color: var(--text-color);
   padding: 10px 20px;
   background: none;
   border: none;
   border-radius: 0;
   border-bottom: 1px solid transparent;
+}
+.playlist-toggle-container .playlist-toggle-button:hover {
+  color: var(--primary-color);
+  cursor: pointer;
+  border-bottom: 1px solid var(--text-color);
 }
 .playlist-toggle-container .playlist-toggle-button.active-toggle {
   border-color: var(--text-color);
@@ -332,7 +334,7 @@ html[data-theme=light] .bg {
     margin: 50px auto;
   }
   .playlist-list-container {
-    --image-size: 200px;
+    --image-size: 150px;
   }
   .playlist-toggle-container {
     justify-content: center;

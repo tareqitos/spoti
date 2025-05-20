@@ -38,6 +38,19 @@ export const Header = ({ user, theme, toggle, searchResults, setSearchResults, s
         }
     }
 
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (inputRef.current && !inputRef.current.contains(event.target as Node)) {
+                setResultsVisible(false);
+            }
+        };
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
+
     const selectTrackResult = (result: SpotifyTrackItem | null) => {
         setTrack(result)
         setResultsVisible(false)
@@ -45,7 +58,6 @@ export const Header = ({ user, theme, toggle, searchResults, setSearchResults, s
             inputRef.current.value = "";
         }
     }
-
 
     return (
         <header>

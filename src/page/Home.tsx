@@ -1,28 +1,24 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useGetPlaylistTracksQuery } from "../api/apiSlice";
-import { SpotifyPlaylist, SpotifyTrack, SpotifyTrackItem } from "../types";
+import { SpotifyPlaylist, SpotifyTrackItem } from "../types";
 import { PlaylistTracks } from "../components/homepage/PlaylistTracks";
 import { Sidebar } from "../components/homepage/Sidebar";
-import { ListSkeleton, PlaylistSkeleton } from "../components/ui/Skeleton";
+import { PlaylistSkeleton } from "../components/ui/Skeleton";
 
 import 'react-loading-skeleton/dist/skeleton.css'
-import { TrackBar } from "../components/homepage/TrackBar";
-import { ListMusic } from "lucide-react";
 import { PlaylistDropdown } from "../components/homepage/PlaylistDropdown";
 
 
 
 interface Props {
     playlists: SpotifyPlaylist,
-    selectedTrack: SpotifyTrackItem | null
     setSelectedTrack: (track: SpotifyTrackItem | null) => void
-    trackbarVisible: boolean,
     setTrackbarVisible: (visible: boolean) => void
 }
 
 
 
-export const Home = ({ playlists, selectedTrack, setSelectedTrack, trackbarVisible, setTrackbarVisible }: Props) => {
+export const Home = ({ playlists, setSelectedTrack, setTrackbarVisible }: Props) => {
     const [selectedPlaylistTracksLink, setSelectedPlaylistTracksLink] = useState<string>("")
     const [selectedPlaylistName, setSelectedPlaylistName] = useState<string>("");
 
@@ -31,6 +27,7 @@ export const Home = ({ playlists, selectedTrack, setSelectedTrack, trackbarVisib
     let { data: playlist_tracks } = useGetPlaylistTracksQuery(selectedPlaylistTracksLink)
     const playlistItems = playlists.items
     const loadTimeout = () => setTimeout(() => setIsLoading(false), 700)
+
 
     const queryPlaylistTracks = (href: string, name: string) => {
         setIsLoading(true)
@@ -46,13 +43,6 @@ export const Home = ({ playlists, selectedTrack, setSelectedTrack, trackbarVisib
         setSelectedTrack(track);
     }
 
-    const hideTrackPanel = () => {
-        if (trackbarVisible) {
-            setSelectedTrack(null)
-            setTrackbarVisible(false);
-        }
-    }
-
 
     useEffect(() => {
         if (playlistItems.length > 0) {
@@ -64,18 +54,12 @@ export const Home = ({ playlists, selectedTrack, setSelectedTrack, trackbarVisib
 
     return (
         <div className="homepage">
-            <section className={`sidebar ${trackbarVisible ? "hidden" : ""}`}>
-
-
-                {!trackbarVisible ?
-                    <Sidebar
-                        playlistItems={playlists}
-                        selectedPlaylistName={selectedPlaylistName}
-                        queryPlaylistTracks={queryPlaylistTracks}
-                    /> :
-                    <ListMusic onClick={hideTrackPanel} className="icons" size={40} />
-                }
-
+            <section className="sidebar">
+                <Sidebar
+                    playlistItems={playlists}
+                    selectedPlaylistName={selectedPlaylistName}
+                    queryPlaylistTracks={queryPlaylistTracks}
+                />
             </section>
 
             <section className="main">
@@ -95,10 +79,6 @@ export const Home = ({ playlists, selectedTrack, setSelectedTrack, trackbarVisib
                         />
 
                 }
-            </section>
-
-            <section className={`trackbar ${trackbarVisible ? "show" : ""}`}>
-                {selectedTrack && <TrackBar track={selectedTrack} hideTrack={hideTrackPanel} />}
             </section>
         </div>
     )
