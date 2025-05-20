@@ -10,6 +10,7 @@ interface Props {
 export const PlaylistDropdown = ({ playlistItems, selectedPlaylistName, queryPlaylistTracks }: Props) => {
     return (
         <select
+            defaultValue="Select a playlist"
             onChange={(e) => {
                 const selectedPlaylist = playlistItems.items.find(playlist => playlist.name === e.target.value);
                 if (selectedPlaylist) {

@@ -13,23 +13,24 @@ import { PlaylistDropdown } from "../components/homepage/PlaylistDropdown";
 
 
 interface Props {
-    playlists: SpotifyPlaylist;
+    playlists: SpotifyPlaylist,
+    selectedTrack: SpotifyTrackItem | null
+    setSelectedTrack: (track: SpotifyTrackItem | null) => void
+    trackbarVisible: boolean,
+    setTrackbarVisible: (visible: boolean) => void
 }
 
 
 
-export const Home = ({ playlists }: Props) => {
+export const Home = ({ playlists, selectedTrack, setSelectedTrack, trackbarVisible, setTrackbarVisible }: Props) => {
     const [selectedPlaylistTracksLink, setSelectedPlaylistTracksLink] = useState<string>("")
     const [selectedPlaylistName, setSelectedPlaylistName] = useState<string>("");
-    const [selectedTrack, setSelectedTrack] = useState<SpotifyTrackItem | null>();
-    const [trackbarVisible, setTrackbarVisible] = useState(false);
 
     const [isLoading, setIsLoading] = useState(true)
 
     let { data: playlist_tracks } = useGetPlaylistTracksQuery(selectedPlaylistTracksLink)
     const playlistItems = playlists.items
     const loadTimeout = () => setTimeout(() => setIsLoading(false), 700)
-
 
     const queryPlaylistTracks = (href: string, name: string) => {
         setIsLoading(true)
@@ -41,14 +42,17 @@ export const Home = ({ playlists }: Props) => {
     }
 
     const showTrackPanel = (track: SpotifyTrackItem) => {
-        setTrackbarVisible(true)
+        setTrackbarVisible(true);
         setSelectedTrack(track);
     }
 
     const hideTrackPanel = () => {
-        setTrackbarVisible(false);
-        setSelectedTrack(null);
+        if (trackbarVisible) {
+            setSelectedTrack(null)
+            setTrackbarVisible(false);
+        }
     }
+
 
     useEffect(() => {
         if (playlistItems.length > 0) {

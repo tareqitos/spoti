@@ -16,6 +16,9 @@ export const UserProfile = ({ user, playlists, theme }: UserProps) => {
     const followers = user.followers.total;
     const url = user.external_urls.spotify
 
+    const userPage = window.location.pathname.split("/").pop();
+    console.log(userPage)
+
     const getCountryImage = `https://purecatamphetamine.github.io/country-flag-icons/3x2/${country}.svg`
     const Background = () => {
         if (theme === "dark") {

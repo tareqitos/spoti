@@ -369,6 +369,47 @@ select {
   margin-top: 10px;
 }
 
+.search-wrapper {
+  position: relative;
+}
+.search-wrapper .search-results-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 0px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 50vh;
+  margin-top: 10px;
+  border-radius: 10px;
+  background-color: var(--track-bg);
+  overflow: scroll;
+}
+.search-wrapper .search-results-container .result {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 20px;
+}
+.search-wrapper .search-results-container .result div {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 10px;
+  text-align: left;
+}
+.search-wrapper .search-results-container .result:hover {
+  background-color: var(--item-bg);
+  cursor: pointer;
+}
+
 ::-webkit-scrollbar {
   width: 2px;
 }
