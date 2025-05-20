@@ -74,6 +74,12 @@ section.trackbar {
         visibility: visible;
         transform: translate(0, -50%);
 
+        @media screen and (max-width: 500px) {
+            width: 90vw;
+            left: 50%;
+            right: 50%;
+            transform: translate(-50%, -50%);
+        }
     }
 }
 
