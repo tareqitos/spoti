@@ -1,5 +1,5 @@
 import { useEffect } from "react"
-import { SpotifyTrack, SpotifyTrackItem } from "../../types"
+import { SpotifyTrackItem } from "../../types"
 import { convertDateToLong } from "../helpers/helpers"
 import { X } from "lucide-react"
 
@@ -9,11 +9,6 @@ interface Props {
 }
 
 export const TrackBar = ({ track, hideTrack }: Props) => {
-
-
-    useEffect(() => {
-        console.log("TRACK: ", track)
-    }, [track])
 
     return (
         <div className="track-container">

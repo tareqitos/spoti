@@ -1,4 +1,3 @@
-import { data } from "react-router-dom";
 import { SpotifyTrackItem } from "../../types";
 
 export const convertDuration = (durationMs: number) => {

@@ -10,18 +10,18 @@ interface Props {
 export const PlaylistDropdown = ({ playlistItems, selectedPlaylistName, queryPlaylistTracks }: Props) => {
     return (
         <select
-            defaultValue="Select a playlist"
+            value={selectedPlaylistName || "Select a playlist"}
             onChange={(e) => {
                 const selectedPlaylist = playlistItems.items.find(playlist => playlist.name === e.target.value);
                 if (selectedPlaylist) {
                     queryPlaylistTracks(selectedPlaylist.tracks.href, selectedPlaylist.name)
                 }
             }}>
+            <option disabled value="Select a playlist">Select a playlist</option>
             {playlistItems.items.map((playlist: typeof playlistItems.items[number]) => (
                 <option
                     key={uuidv4()}
                     value={playlist.name}
-                    selected={selectedPlaylistName === playlist.name}
                 >
                     {playlist.name}
                 </option>

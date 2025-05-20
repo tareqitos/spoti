@@ -1,9 +1,8 @@
-import { SpotifyTrack, SpotifyTrackItem } from "../../types";
-import { v4 as uuidv4 } from 'uuid';
-import { convertDateToLong, convertDuration, sortAsc, sortDesc } from "../helpers/helpers";
-import { ArrowDown, ArrowUp, Funnel } from "lucide-react";
 import { useState } from "react";
-
+import { v4 as uuidv4 } from 'uuid';
+import { ArrowDown, ArrowUp, Funnel } from "lucide-react";
+import { SpotifyTrack, SpotifyTrackItem } from "../../types";
+import { convertDateToLong, convertDuration, sortAsc, sortDesc } from "../helpers/helpers";
 
 interface TracksProps {
     tracks: SpotifyTrack,
@@ -16,7 +15,7 @@ interface SortState {
 }
 
 export const PlaylistTracks = ({ tracks, showTrack }: TracksProps) => {
-    const [items, setItems] = useState(tracks.items)
+    const [items, setItems] = useState(tracks.items);
     const [sortState, setSortState] = useState<SortState>({ activeColumn: null, isAscending: false });
 
     const handleSorting = (type: string) => {
@@ -25,26 +24,25 @@ export const PlaylistTracks = ({ tracks, showTrack }: TracksProps) => {
         const isAscending = isCurrentColumn ? !sortState.isAscending : true;
 
         if (isAscending) {
-            sortedItems = sortAsc(items.map(item => item.track), type)
+            sortedItems = sortAsc(items.map(item => item.track), type);
         } else {
-            sortedItems = sortDesc(items.map(item => item.track), type)
+            sortedItems = sortDesc(items.map(item => item.track), type);
         }
 
         setSortState({
             activeColumn: type,
             isAscending: isAscending
-        })
+        });
 
         setItems(items.map((item, index) => ({
             ...item,
             track: sortedItems[index]
         })));
-
-    }
+    };
 
     const SortButton = ({ type }: { type: string }) => {
-        const isActive = sortState.activeColumn === type
-        const isAscending = isActive && sortState.isAscending
+        const isActive = sortState.activeColumn === type;
+        const isAscending = isActive && sortState.isAscending;
         const buttonSize = 16;
 
         return (
@@ -57,26 +55,27 @@ export const PlaylistTracks = ({ tracks, showTrack }: TracksProps) => {
         );
     };
 
-
     return (
         <div className="tracks-wrapper">
 
-            <div className="tracks-container header">
-                <div className="sort-container">
-                    <span>Title</span>
-                    <SortButton type="title" />
-                </div>
-                <div className="sort-container album">
-                    <span>Album</span>
-                    <SortButton type="album" />
-                </div>
-                <div className="sort-container release">
-                    <span>Release date</span>
-                    <SortButton type="release_date" />
-                </div>
-                <div className="sort-container duration">
-                    <span>Duration</span>
-                    <SortButton type="duration" />
+            <div >
+                <div className="tracks-container header">
+                    <div className="sort-container">
+                        <span>Title</span>
+                        <SortButton type="title" />
+                    </div>
+                    <div className="sort-container album">
+                        <span>Album</span>
+                        <SortButton type="album" />
+                    </div>
+                    <div className="sort-container release">
+                        <span>Release date</span>
+                        <SortButton type="release_date" />
+                    </div>
+                    <div className="sort-container duration">
+                        <span>Duration</span>
+                        <SortButton type="duration" />
+                    </div>
                 </div>
             </div>
             {

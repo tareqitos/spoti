@@ -10,24 +10,24 @@ interface UserProps {
 
 export const UserProfile = ({ user, playlists, theme }: UserProps) => {
     const name = user.display_name;
-    const image = user.images[0].url
+    const image = user.images[0].url;
     const country = user.country;
     const email = user.email;
     const followers = user.followers.total;
-    const url = user.external_urls.spotify
+    const url = user.external_urls.spotify;
 
-    const getCountryImage = `https://purecatamphetamine.github.io/country-flag-icons/3x2/${country}.svg`
+    const getCountryImage = `https://purecatamphetamine.github.io/country-flag-icons/3x2/${country}.svg`;
+
     const Background = () => {
-        if (theme === "dark") {
-            return (
-                <div className="bg">
-                    <img src={image} alt="user-picture" width="100%" />
-                </div>
-            );
-        } else {
-            return <div className="bg"></div>
-        }
-    }
+        return theme === "dark" ? (
+            <div className="bg">
+                <img src={image} alt="user-picture" width="100%" />
+            </div>
+        ) : (
+            <div className="bg"></div>
+        );
+    };
+
     return (
         <div id="content">
             <section className="profile-container">

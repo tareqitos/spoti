@@ -4,11 +4,9 @@ import { SpotifyPlaylist, SpotifyTrackItem } from "../types";
 import { PlaylistTracks } from "../components/homepage/PlaylistTracks";
 import { Sidebar } from "../components/homepage/Sidebar";
 import { PlaylistSkeleton } from "../components/ui/Skeleton";
-
-import 'react-loading-skeleton/dist/skeleton.css'
 import { PlaylistDropdown } from "../components/homepage/PlaylistDropdown";
 
-
+import 'react-loading-skeleton/dist/skeleton.css';
 
 interface Props {
     playlists: SpotifyPlaylist,
@@ -16,39 +14,35 @@ interface Props {
     setTrackbarVisible: (visible: boolean) => void
 }
 
-
-
 export const Home = ({ playlists, setSelectedTrack, setTrackbarVisible }: Props) => {
-    const [selectedPlaylistTracksLink, setSelectedPlaylistTracksLink] = useState<string>("")
+    const [selectedPlaylistTracksLink, setSelectedPlaylistTracksLink] = useState<string>("");
     const [selectedPlaylistName, setSelectedPlaylistName] = useState<string>("");
+    const [isLoading, setIsLoading] = useState(true);
 
-    const [isLoading, setIsLoading] = useState(true)
+    const { data: playlist_tracks } = useGetPlaylistTracksQuery(selectedPlaylistTracksLink || "");
+    const playlistItems = playlists.items;
 
-    let { data: playlist_tracks } = useGetPlaylistTracksQuery(selectedPlaylistTracksLink)
-    const playlistItems = playlists.items
-    const loadTimeout = () => setTimeout(() => setIsLoading(false), 700)
-
+    const loadTimeout = () => setTimeout(() => setIsLoading(false), 700);
 
     const queryPlaylistTracks = (href: string, name: string) => {
-        setIsLoading(true)
+        setIsLoading(true);
         if (href) {
-            setSelectedPlaylistTracksLink(href)
-            setSelectedPlaylistName(name)
-            loadTimeout()
+            setSelectedPlaylistTracksLink(href);
+            setSelectedPlaylistName(name);
+            loadTimeout();
         }
-    }
+    };
 
     const showTrackPanel = (track: SpotifyTrackItem) => {
         setTrackbarVisible(true);
         setSelectedTrack(track);
-    }
-
+    };
 
     useEffect(() => {
         if (playlistItems.length > 0) {
             setSelectedPlaylistTracksLink(playlistItems[0].tracks.href);
             setSelectedPlaylistName(playlistItems[0].name);
-            loadTimeout()
+            loadTimeout();
         }
     }, [playlistItems]);
 
@@ -77,7 +71,6 @@ export const Home = ({ playlists, setSelectedTrack, setTrackbarVisible }: Props)
                             tracks={playlist_tracks}
                             showTrack={showTrackPanel}
                         />
-
                 }
             </section>
         </div>

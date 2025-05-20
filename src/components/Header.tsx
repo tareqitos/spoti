@@ -2,7 +2,7 @@ import { Home, Moon, Search, Sun } from 'lucide-react';
 import '../styles/components.scss'
 import { SpotifyTrackItem, User } from '../types'
 import { Link } from 'react-router-dom';
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
+import { Dispatch, SetStateAction, useRef, useState } from 'react';
 import { useGetSearchTrackResultQuery } from '../api/apiSlice';
 
 interface HeaderProps {
@@ -12,14 +12,14 @@ interface HeaderProps {
     searchResults: SpotifyTrackItem[] | null
     setSearchResults: Dispatch<SetStateAction<SpotifyTrackItem[] | null>>
     setTrack: (track: SpotifyTrackItem | null) => void
+    hideTrack: () => void
 
 }
 
-export const Header = ({ user, theme, toggle, searchResults, setSearchResults, setTrack }: HeaderProps) => {
+export const Header = ({ user, theme, toggle, searchResults, setSearchResults, setTrack, hideTrack }: HeaderProps) => {
     const [resultsVisible, setResultsVisible] = useState(false)
     const inputRef = useRef<HTMLInputElement | null>(null)
-    const { data: tracks } = useGetSearchTrackResultQuery(inputRef.current?.value || "")
-
+    const { data: tracks } = useGetSearchTrackResultQuery(inputRef.current?.value || ".")
 
     const fetchSearchResults = (event: React.ChangeEvent<HTMLInputElement>) => {
         event.preventDefault();
@@ -38,19 +38,6 @@ export const Header = ({ user, theme, toggle, searchResults, setSearchResults, s
         }
     }
 
-    useEffect(() => {
-        const handleClickOutside = (event: MouseEvent) => {
-            if (inputRef.current && !inputRef.current.contains(event.target as Node)) {
-                setResultsVisible(false);
-            }
-        };
-
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-        };
-    }, []);
-
     const selectTrackResult = (result: SpotifyTrackItem | null) => {
         setTrack(result)
         setResultsVisible(false)
@@ -61,7 +48,7 @@ export const Header = ({ user, theme, toggle, searchResults, setSearchResults, s
 
     return (
         <header>
-            <Link to="/user" className='avatar'>
+            <Link to="user" onClick={hideTrack} className='avatar'>
                 <img
                     src={user.images[1].url}
                     alt='user-picture'
@@ -108,7 +95,7 @@ export const Header = ({ user, theme, toggle, searchResults, setSearchResults, s
                 }
             </div>
             <Link to="/">
-                <button>
+                <button onClick={hideTrack}>
                     <Home className="icons" size={24} />
                 </button>
             </Link>
