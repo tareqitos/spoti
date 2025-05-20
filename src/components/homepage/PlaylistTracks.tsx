@@ -66,15 +66,15 @@ export const PlaylistTracks = ({ tracks, showTrack }: TracksProps) => {
                     <span>Title</span>
                     <SortButton type="title" />
                 </div>
-                <div className="sort-container">
+                <div className="sort-container album">
                     <span>Album</span>
                     <SortButton type="album" />
                 </div>
-                <div className="sort-container">
+                <div className="sort-container release">
                     <span>Release date</span>
                     <SortButton type="release_date" />
                 </div>
-                <div className="sort-container">
+                <div className="sort-container duration">
                     <span>Duration</span>
                     <SortButton type="duration" />
                 </div>

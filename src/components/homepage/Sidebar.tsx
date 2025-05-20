@@ -9,7 +9,7 @@ interface Props {
 
 export const Sidebar = ({ playlistItems, selectedPlaylistName, queryPlaylistTracks }: Props) => {
     return (
-        <>
+        <div>
             {playlistItems.items.map((playlist: typeof playlistItems.items[number]) => (
                 <div key={uuidv4()}>
                     <a
@@ -20,6 +20,6 @@ export const Sidebar = ({ playlistItems, selectedPlaylistName, queryPlaylistTrac
                     </a>
                 </div>
             ))}
-        </>
+        </div>
     )
 }

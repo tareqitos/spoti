@@ -34,6 +34,25 @@ input {
     }
 }
 
+select {
+    @include FontProperties(16px, 400px);
+    padding: 5px 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    background-color: var(--input-bg);
+    color: var(--input-text);
+    border: 1px solid var(--input-border);
+    transition: $transition;
+    width: 50%;
+    outline: none;
+    cursor: pointer;
+
+    @media screen and (min-width: 1200px) {
+        display: none;
+    }
+
+}
+
 .icons {
     color: var(--text-color);
     transition: $transition;
@@ -90,6 +109,18 @@ input {
     background-color: var(--track-bg);
     --image-size: 60px;
 
+    @media screen and (max-width: 1200px) {
+        grid-template-columns: 3fr 2fr 2fr
+    }
+
+    @media screen and (max-width: 768px) {
+        grid-template-columns: 2fr 1fr;
+        padding: 10px;
+        border-radius: 0;
+        background-color: var(--bg-color);
+
+    }
+
     &:first-child {
         margin-top: 0;
         margin-bottom: 20px;
@@ -103,7 +134,21 @@ input {
         button {
             height: 18px;
         }
+
+        &.duration {
+            @media screen and (max-width: 1200px) {
+                display: none;
+            }
+        }
+
+        &.album,
+        &.release {
+            @media screen and (max-width: 768px) {
+                display: none;
+            }
+        }
     }
+
 
     .track-image-bg {
         position: absolute;
@@ -170,6 +215,28 @@ input {
     .track-duration {
         z-index: 1;
     }
+
+    .track-release-date,
+    .track-duration {
+        z-index: 1;
+
+        @media screen and (max-width: 768px) {
+            display: none;
+        }
+    }
+
+
+    .track-duration {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 14px;
+        color: var(--text-color);
+
+        @media screen and (max-width: 1200px) {
+            display: none;
+        }
+    }
 }
 
 // TRACK INFORMATION
@@ -193,7 +260,6 @@ input {
             transform: scale(2.5);
             filter: blur(100px);
             border-radius: 20px;
-
         }
 
         .name {

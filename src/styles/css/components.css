@@ -132,6 +132,27 @@ input.search:focus {
   outline: none;
 }
 
+select {
+  font-size: 16px;
+  font-weight: 400px;
+  line-height: 1.5;
+  padding: 5px 10px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  background-color: var(--input-bg);
+  color: var(--input-text);
+  border: 1px solid var(--input-border);
+  transition: all 0.2s cubic-bezier(0.19, 0.71, 0.45, 0.94);
+  width: 50%;
+  outline: none;
+  cursor: pointer;
+}
+@media screen and (min-width: 1200px) {
+  select {
+    display: none;
+  }
+}
+
 .icons {
   color: var(--text-color);
   transition: all 0.2s cubic-bezier(0.19, 0.71, 0.45, 0.94);
@@ -193,6 +214,19 @@ input.search:focus {
   background-color: var(--track-bg);
   --image-size: 60px;
 }
+@media screen and (max-width: 1200px) {
+  .tracks-container {
+    grid-template-columns: 3fr 2fr 2fr;
+  }
+}
+@media screen and (max-width: 768px) {
+  .tracks-container {
+    grid-template-columns: 2fr 1fr;
+    padding: 10px;
+    border-radius: 0;
+    background-color: var(--bg-color);
+  }
+}
 .tracks-container:first-child {
   margin-top: 0;
   margin-bottom: 20px;
@@ -204,6 +238,16 @@ input.search:focus {
 }
 .tracks-container .sort-container button {
   height: 18px;
+}
+@media screen and (max-width: 1200px) {
+  .tracks-container .sort-container.duration {
+    display: none;
+  }
+}
+@media screen and (max-width: 768px) {
+  .tracks-container .sort-container.album, .tracks-container .sort-container.release {
+    display: none;
+  }
 }
 .tracks-container .track-image-bg {
   position: absolute;
@@ -261,6 +305,28 @@ input.search:focus {
 .tracks-container .track-release-date,
 .tracks-container .track-duration {
   z-index: 1;
+}
+.tracks-container .track-release-date,
+.tracks-container .track-duration {
+  z-index: 1;
+}
+@media screen and (max-width: 768px) {
+  .tracks-container .track-release-date,
+  .tracks-container .track-duration {
+    display: none;
+  }
+}
+.tracks-container .track-duration {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--text-color);
+}
+@media screen and (max-width: 1200px) {
+  .tracks-container .track-duration {
+    display: none;
+  }
 }
 
 .track-container {

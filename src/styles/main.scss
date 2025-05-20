@@ -42,6 +42,10 @@ header {
     margin-top: 100px;
     height: calc(100vh - 100px);
     padding: $auto-padding-content;
+
+    @media screen and (max-width: 768px) {
+        padding: $auto-padding-content-mobile;
+    }
 }
 
 section.sidebar,
@@ -49,7 +53,7 @@ section.trackbar {
     @include Flex(column, flex-start, flex-start, 15px);
     width: 0;
     height: 100%;
-    padding: 20px;
+    padding: 0 20px;
     overflow-x: hidden;
     overflow-y: auto;
     transition: $transition-fast;
@@ -58,17 +62,44 @@ section.trackbar {
 
 section.trackbar {
     visibility: hidden;
-    height: 90vh;
     border-radius: 20px;
 
-    &.hidden {
+    @media screen and (max-width: 768px) {
+        position: fixed;
+        z-index: 1000;
+        background-color: var(--background-color);
+
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 60vw;
+        height: 50%;
+        margin: 10px auto;
+    }
+
+    &.show {
         visibility: visible;
         width: 600px;
+
+        @media screen and (max-width: 768px) {
+            width: 70%;
+        }
     }
+
+
 }
 
 section.sidebar {
     width: 500px;
+
+    div {
+        padding-bottom: 10px;
+
+        a {
+            @include FontProperties(18px, 400, 1.2);
+            ;
+        }
+    }
 
     .selected {
         color: var(--primary-color);
@@ -80,13 +111,18 @@ section.sidebar {
         // opacity: 0;
         // visibility: hidden;
     }
+
+    @media screen and (max-width: 1200px) {
+        display: none;
+
+    }
 }
 
 section.main {
     width: 100%;
     height: 100%;
     overflow-y: auto;
-    padding: 20px;
+    padding: 0 20px;
     // background-color: blue;
 }
 
@@ -98,6 +134,10 @@ section.main {
     flex-direction: column;
     margin-top: 80px;
     padding: $auto-padding-content;
+
+    @media screen and (max-width: 768px) {
+        padding: $auto-padding-content-mobile;
+    }
 
 }
 

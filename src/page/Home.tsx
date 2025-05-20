@@ -8,6 +8,7 @@ import { ListSkeleton, PlaylistSkeleton } from "../components/ui/Skeleton";
 import 'react-loading-skeleton/dist/skeleton.css'
 import { TrackBar } from "../components/homepage/TrackBar";
 import { ListMusic } from "lucide-react";
+import { PlaylistDropdown } from "../components/homepage/PlaylistDropdown";
 
 
 
@@ -61,6 +62,7 @@ export const Home = ({ playlists }: Props) => {
         <div className="homepage">
             <section className={`sidebar ${trackbarVisible ? "hidden" : ""}`}>
 
+
                 {!trackbarVisible ?
                     <Sidebar
                         playlistItems={playlists}
@@ -69,17 +71,29 @@ export const Home = ({ playlists }: Props) => {
                     /> :
                     <ListMusic onClick={hideTrackPanel} className="icons" size={40} />
                 }
+
             </section>
 
             <section className="main">
+                <PlaylistDropdown
+                    playlistItems={playlists}
+                    selectedPlaylistName={selectedPlaylistName}
+                    queryPlaylistTracks={queryPlaylistTracks}
+                />
                 {
                     isLoading ?
                         <PlaylistSkeleton /> :
-                        playlist_tracks && <PlaylistTracks tracks={playlist_tracks} showTrack={showTrackPanel} />
+
+                        playlist_tracks &&
+                        <PlaylistTracks
+                            tracks={playlist_tracks}
+                            showTrack={showTrackPanel}
+                        />
+
                 }
             </section>
 
-            <section className={`trackbar ${trackbarVisible ? "hidden" : ""}`}>
+            <section className={`trackbar ${trackbarVisible ? "show" : ""}`}>
                 {selectedTrack && <TrackBar track={selectedTrack} hideTrack={hideTrackPanel} />}
             </section>
         </div>
