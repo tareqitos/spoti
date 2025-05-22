@@ -1,14 +1,17 @@
 import { AtSign, CircleUserRound } from "lucide-react";
 import { SpotifyPlaylist, User } from "../types";
 import { UserPlaylists } from "../components/profile/ProfilePlaylists";
+import { useSelector } from "react-redux";
+import { selectTheme } from "../state/themeSlice";
 
 interface UserProps {
     user: User;
     playlists: SpotifyPlaylist;
-    theme: string;
 }
 
-export const UserProfile = ({ user, playlists, theme }: UserProps) => {
+export const UserProfile = ({ user, playlists }: UserProps) => {
+    const theme = useSelector(selectTheme);
+
     const name = user.display_name;
     const image = user.images[0].url;
     const country = user.country;
