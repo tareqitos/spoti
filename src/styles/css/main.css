@@ -167,6 +167,11 @@ section.trackbar.show {
   }
 }
 
+.selected {
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
 section.sidebar {
   width: 500px;
   height: 100%;
@@ -178,10 +183,6 @@ section.sidebar div a {
   font-size: 18px;
   font-weight: 400;
   line-height: 1.2;
-}
-section.sidebar .selected {
-  color: var(--primary-color);
-  font-weight: 600;
 }
 section.sidebar.hidden {
   width: 100px;

@@ -21,7 +21,7 @@ export const Home = ({ playlists, showTrackBar }: Props) => {
     const { data: playlist_tracks } = useGetPlaylistTracksQuery(selectedPlaylistTracksLink || "");
     const playlistItems = playlists.items;
 
-    const loadTimeout = () => setTimeout(() => setIsLoading(false), 700);
+    const loadTimeout = () => setTimeout(() => setIsLoading(false), 1000);
 
     const queryPlaylistTracks = (href: string, name: string) => {
         setIsLoading(true);
@@ -63,7 +63,7 @@ export const Home = ({ playlists, showTrackBar }: Props) => {
                         playlist_tracks &&
                         <PlaylistTracks
                             tracks={playlist_tracks}
-                            showTrack={showTrackBar}
+                            showTrackBar={showTrackBar}
                         />
                 }
             </section>

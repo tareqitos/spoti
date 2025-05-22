@@ -1,5 +1,5 @@
-import { Home, Moon, Search, Sun } from 'lucide-react';
 import '../styles/components.scss'
+import { Home, Moon, Search, Sun } from 'lucide-react';
 import { SpotifyTrackItem, User } from '../types'
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';

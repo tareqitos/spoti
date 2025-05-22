@@ -2,7 +2,7 @@ import "./App.css";
 import './styles/main.scss';
 import './styles/components.scss';
 
-import { FC, ReactElement, useEffect, useState } from "react";
+import { FC, ReactElement } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 

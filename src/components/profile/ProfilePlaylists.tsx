@@ -41,10 +41,10 @@ export const UserPlaylists = ({ playlists }: PlaylistsProps) => {
                     playlistToShow.map((playlist) => (
                         <div key={playlist.id} className="playlist-item" >
                             <div className="playlist-image-wrapper">
-                                <a href={playlist.external_urls.spotify} target="_blank">
+                                <a href={playlist.external_urls.spotify} target="_blank" rel="noreferrer">
                                     <img
                                         src={playlist.images && playlist.images[0].url}
-                                        alt="playlist image"
+                                        alt="playlist"
                                         title={playlist.name}
                                         width={200}
                                         className="playlist-image"
