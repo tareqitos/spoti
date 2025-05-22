@@ -10,11 +10,10 @@ import 'react-loading-skeleton/dist/skeleton.css';
 
 interface Props {
     playlists: SpotifyPlaylist,
-    setSelectedTrack: (track: SpotifyTrackItem | null) => void
-    setTrackbarVisible: (visible: boolean) => void
+    showTrackBar: (track: SpotifyTrackItem | null) => void
 }
 
-export const Home = ({ playlists, setSelectedTrack, setTrackbarVisible }: Props) => {
+export const Home = ({ playlists, showTrackBar }: Props) => {
     const [selectedPlaylistTracksLink, setSelectedPlaylistTracksLink] = useState<string>("");
     const [selectedPlaylistName, setSelectedPlaylistName] = useState<string>("");
     const [isLoading, setIsLoading] = useState(true);
@@ -31,11 +30,6 @@ export const Home = ({ playlists, setSelectedTrack, setTrackbarVisible }: Props)
             setSelectedPlaylistName(name);
             loadTimeout();
         }
-    };
-
-    const showTrackPanel = (track: SpotifyTrackItem) => {
-        setTrackbarVisible(true);
-        setSelectedTrack(track);
     };
 
     useEffect(() => {
@@ -69,7 +63,7 @@ export const Home = ({ playlists, setSelectedTrack, setTrackbarVisible }: Props)
                         playlist_tracks &&
                         <PlaylistTracks
                             tracks={playlist_tracks}
-                            showTrack={showTrackPanel}
+                            showTrack={showTrackBar}
                         />
                 }
             </section>

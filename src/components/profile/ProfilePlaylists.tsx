@@ -7,8 +7,6 @@ interface PlaylistsProps {
 }
 
 export const UserPlaylists = ({ playlists }: PlaylistsProps) => {
-
-    const playlistsItem = playlists.items
     const totalPlaylists = playlists.items
     const publicPlaylist = playlists.items.filter(item => item.owner.display_name === "tareqitos")
 
