@@ -5,11 +5,13 @@ import { SpotifyTrackItem } from "../types";
 interface TrackState {
     visible: boolean;
     track: SpotifyTrackItem | null;
+    searchResults: SpotifyTrackItem[] | null;
 }
 
 const initialState: TrackState = {
     visible: false,
-    track: null
+    track: null,
+    searchResults: null,
 }
 
 export const trackSlice = createSlice({
@@ -26,11 +28,16 @@ export const trackSlice = createSlice({
 
         setTrack: (state, action: PayloadAction<SpotifyTrackItem | null>) => {
             state.track = action.payload;
+        },
+
+        setTrackResults: (state, action: PayloadAction<SpotifyTrackItem[] | null>) => {
+            state.searchResults = action.payload;
         }
     }
 })
 
-export const { showTrack, hideTrack, setTrack } = trackSlice.actions;
+export const { showTrack, hideTrack, setTrack, setTrackResults } = trackSlice.actions;
 export const selectTrack = (state: RootState) => state.track;
+export const trackResults = (state: RootState) => state.track.searchResults;
 
 export default trackSlice.reducer;
